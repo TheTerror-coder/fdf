@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/09 18:11:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/09 18:26:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
+}
+
+int	ft_printable(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && "10"[i])
+	{
+		if (s[i] != "10"[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	main(void)
@@ -81,7 +95,8 @@ int	main(void)
 					}
 					data[i] = 0;
 					// printf("%s", data);
-					mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
+					if (ft_printable(data))
+						mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
 					x_str += i * 6;
 				}
 				else
