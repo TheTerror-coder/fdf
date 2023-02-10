@@ -6,13 +6,41 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/09 18:26:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/10 18:02:00 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 #include<stdio.h>
 
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+int	wclose(int keycode, t_vars *vars)
+{
+	mlx_clear_window(vars->mlx, vars->win);
+	mlx_destroy_window(vars->mlx, vars->win);
+	(void) keycode;
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+int	main(void)
+{
+	t_vars	vars;
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	mlx_hook(vars.win, 2, 1L<<0, wclose, &vars);
+	mlx_loop(vars.mlx);
+
+	return (0);
+}
+
+/*
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -95,16 +123,12 @@ int	main(void)
 					}
 					data[i] = 0;
 					// printf("%s", data);
-					if (ft_printable(data))
-						mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
+					mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
 					x_str += i * 6;
 				}
 				else
 				{
 					index++;
-					// data[0] = buffer[index];
-					// data[1] = 0;
-					// mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
 					x_str += 6;
 				}
 			}
@@ -131,3 +155,4 @@ int	main(void)
 	free(data);
 	return (0);
 }
+*/
