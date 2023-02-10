@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/10 18:02:00 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/10 18:05:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
-int	wclose(int keycode, t_vars *vars)
+int	key_hook(int keycode, t_vars *vars)
 {
-	mlx_clear_window(vars->mlx, vars->win);
-	mlx_destroy_window(vars->mlx, vars->win);
+	printf("Hello from key_hook!\n");
 	(void) keycode;
-	exit(EXIT_SUCCESS);
+	(void) vars;
 	return (0);
 }
 
@@ -33,12 +32,11 @@ int	main(void)
 	t_vars	vars;
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, wclose, &vars);
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
-
-	return (0);
 }
+
 
 /*
 typedef struct	s_data {
