@@ -6,22 +6,20 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/11 15:54:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/11 16:23:02 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 #include<stdio.h>
 
-int	wclose(int keycode, t_vars *vars)
+int	wclose(t_vars *vars)
 {
-	// printf("%d\n", keycode);
-	if (keycode == 65307)
-	{
-		mlx_clear_window(vars->mlx, vars->win);
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(EXIT_SUCCESS);
-	}
+	printf("Bouton exit (x rouge) appuyé!!!\n");
+	// (void) vars;
+	mlx_clear_window(vars->mlx, vars->win);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -31,7 +29,7 @@ int	main(void)
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, wclose, &vars);
+	mlx_hook(vars.win, 17, 0, wclose, &vars);
 	mlx_loop(vars.mlx);
 
 	return (0);
