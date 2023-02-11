@@ -6,24 +6,20 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/10 18:05:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/11 15:41:09 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 #include<stdio.h>
 
-
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
-
-int	key_hook(int keycode, t_vars *vars)
+int	wclose(int keycode, t_vars *vars)
 {
-	printf("Hello from key_hook!\n");
-	(void) keycode;
+	printf("%d\n", keycode);
 	(void) vars;
+	// mlx_clear_window(vars->mlx, vars->win);
+	// mlx_destroy_window(vars->mlx, vars->win);
+	// exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -32,11 +28,12 @@ int	main(void)
 	t_vars	vars;
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
-	mlx_key_hook(vars.win, key_hook, &vars);
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	mlx_hook(vars.win, 2, 1L<<0, wclose, &vars);
 	mlx_loop(vars.mlx);
-}
 
+	return (0);
+}
 
 /*
 typedef struct	s_data {
@@ -69,10 +66,12 @@ int	ft_printable(char *s)
 	return (1);
 }
 
+int	ft_hook_xbutton(t_vars *mlx)
+{}
+
 int	main(void)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	t_vars	*mlx;
 	int	fd;
 	int	i;
 	int	index = 0;
@@ -89,8 +88,8 @@ int	main(void)
 	data = ft_calloc(11, 1);
 	if (!data || !buffer)
 		return (-1);
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 1820, 880, "Hello world");
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, 1820, 880, "Hello world");
 	fd = open("maps/test_maps/42.fdf", O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -121,7 +120,7 @@ int	main(void)
 					}
 					data[i] = 0;
 					// printf("%s", data);
-					mlx_string_put(mlx_ptr, win_ptr, x_str + x_offset, y_str + y_offset, color, data);
+					mlx_string_put(mlx->mlx, mlx->win, x_str + x_offset, y_str + y_offset, color, data);
 					x_str += i * 6;
 				}
 				else
@@ -132,25 +131,26 @@ int	main(void)
 			}
 		}
 	}
+	close(fd);
+	free(buffer);
+	free(data);
 	// if (len_read == -1)
 	// 	printf("read() failed");
 	// if (len_read == 0)
 	// 	printf("read() success");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 500, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 515, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 530, color, "0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 545, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 560, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 575, color, "0  0 10 10 10 10 10 10  0  0  0  0 10 10 10 10  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 590, color, "0  0  0 10 10 10 10 10  0  0  0 10 10  0  0  0  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 605, color, "0  0  0  0  0  0 10 10  0  0  0 10 10  0  0  0  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 620, color, "0  0  0  0  0  0 10 10  0  0  0 10 10 10 10 10 10  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 635, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx_ptr, win_ptr, 1000, 650, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_loop(mlx_ptr);
-	close(fd);
-	free(buffer);
-	free(data);
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 500, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 515, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 530, color, "0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 545, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 560, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 575, color, "0  0 10 10 10 10 10 10  0  0  0  0 10 10 10 10  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 590, color, "0  0  0 10 10 10 10 10  0  0  0 10 10  0  0  0  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 605, color, "0  0  0  0  0  0 10 10  0  0  0 10 10  0  0  0  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 620, color, "0  0  0  0  0  0 10 10  0  0  0 10 10 10 10 10 10  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 635, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
+	mlx_string_put(mlx->mlx, mlx->win, 1000, 650, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
+	mlx_mouse_hook(mlx->win, ft_hook_xbutton, 0);
+	mlx_loop(mlx->mlx);
 	return (0);
 }
 */

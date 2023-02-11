@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/08 18:31:38 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/10 19:29:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,12 @@
 # include<sys/stat.h>
 # include<fcntl.h>
 # include "libft/libft.h"
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
 
 #endif
