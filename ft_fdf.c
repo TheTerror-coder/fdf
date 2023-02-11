@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/11 15:41:09 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/11 15:54:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 int	wclose(int keycode, t_vars *vars)
 {
-	printf("%d\n", keycode);
-	(void) vars;
-	// mlx_clear_window(vars->mlx, vars->win);
-	// mlx_destroy_window(vars->mlx, vars->win);
-	// exit(EXIT_SUCCESS);
+	// printf("%d\n", keycode);
+	if (keycode == 65307)
+	{
+		mlx_clear_window(vars->mlx, vars->win);
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(EXIT_SUCCESS);
+	}
 	return (0);
 }
 
