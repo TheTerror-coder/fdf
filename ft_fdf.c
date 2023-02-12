@@ -6,154 +6,140 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/11 16:24:47 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/12 14:12:55 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 #include<stdio.h>
 
-int	wclose(int button, int x, int y, t_vars *vars)
+void	ft_exitprocss(int status, t_vars *params)
 {
-	printf("button: %d, x= %d, y= %d\n", button, x, y);
-	(void) vars;
-	// if (keycode == 65307)
-	// {
-	// 	mlx_clear_window(vars->mlx, vars->win);
-	// 	mlx_destroy_window(vars->mlx, vars->win);
-	// 	exit(EXIT_SUCCESS);
-	// }
-	return (0);
+	if (close(params->fd) == -1)
+		status = EXIT_FAILURE;
+	if (params->mlx)
+	{
+		if (params->img->image)
+			mlx_destroy_image(params->mlx, params->img->image);
+		mlx_clear_window(params->mlx, params->win);
+		mlx_destroy_window(params->mlx, params->win);
+	}
+	if (status == EXIT_SUCCESS)
+		printf("EXIT_SUCCESS\n");
+	else
+		printf("EXIT_FAILURE\n");
+	free(params->img);
+	free(params);
+	exit(status);
 }
 
-int	main(void)
-{
-	t_vars	vars;
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 4, 1L<<2, wclose, &vars);
-	mlx_loop(vars.mlx);
-
-	return (0);
-}
-
-/*
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int	ft_printable(char *s)
+void	ft_freesplit(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && "10"[i])
+	while (str[i])
 	{
-		if (s[i] != "10"[i])
-			return (0);
+		free(str[i]);
 		i++;
 	}
-	return (1);
+	free(str);
 }
 
-int	ft_hook_xbutton(t_vars *mlx)
-{}
-
-int	main(void)
+int	ft_count_str(char **var)
 {
-	t_vars	*mlx;
-	int	fd;
 	int	i;
-	int	index = 0;
-	int	x_str = 0;
-	int	x_offset = 100;
-	int	y_str = 0;
-	int	y_offset = 200;
-	int	color = 0x00FF0000;
-	int	len_read = -999;
-	char	*buffer;
-	char	*data;
 
-	buffer = ft_calloc(11, 1);
-	data = ft_calloc(11, 1);
-	if (!data || !buffer)
-		return (-1);
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, 1820, 880, "Hello world");
-	fd = open("maps/test_maps/42.fdf", O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	while (len_read != 0 && len_read != -1)
+	i = 0;
+	if (!var)
+		return (0);
+	while (var[i])
+		i++;
+	return (i);
+}
+
+t_bool	ft_checkextension(char	*name)
+{
+	char	**parts;
+
+	parts = NULL;
+	parts = ft_split(name, '.');
+	if (!parts)
+		return (__FALSE);
+	if (ft_count_str(parts) != 2 || ft_strlen(parts[1]) != 3)
 	{
-		len_read = read(fd, buffer, 10);
-		if (len_read != -1 && len_read != 0)
-		{
-			buffer[len_read] = 0;
-			index = 0;
-			while (buffer[index])
-			{
-				if (buffer[index] == '\n')
-				{
-					x_str = 0;
-					index++;
-					y_str += 15;
-					// printf("\n");
-				}
-				else if (ft_isdigit(buffer[index]))
-				{
-					i = 0;
-					while (ft_isdigit(buffer[index]))
-					{
-						data[i] = buffer[index];
-						index++;
-						i++;
-					}
-					data[i] = 0;
-					// printf("%s", data);
-					mlx_string_put(mlx->mlx, mlx->win, x_str + x_offset, y_str + y_offset, color, data);
-					x_str += i * 6;
-				}
-				else
-				{
-					index++;
-					x_str += 6;
-				}
-			}
-		}
+		printf("format no valid!\n");
+		ft_freesplit(parts);
+		return (__FALSE);
 	}
-	close(fd);
-	free(buffer);
-	free(data);
-	// if (len_read == -1)
-	// 	printf("read() failed");
-	// if (len_read == 0)
-	// 	printf("read() success");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 500, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 515, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 530, color, "0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 545, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 560, color, "0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 575, color, "0  0 10 10 10 10 10 10  0  0  0  0 10 10 10 10  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 590, color, "0  0  0 10 10 10 10 10  0  0  0 10 10  0  0  0  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 605, color, "0  0  0  0  0  0 10 10  0  0  0 10 10  0  0  0  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 620, color, "0  0  0  0  0  0 10 10  0  0  0 10 10 10 10 10 10  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 635, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_string_put(mlx->mlx, mlx->win, 1000, 650, color, "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0");
-	mlx_mouse_hook(mlx->win, ft_hook_xbutton, 0);
-	mlx_loop(mlx->mlx);
+	if (ft_strncmp(parts[1] , "fdf", 3) == 0)
+	{
+		printf("format valid!\n");
+		ft_freesplit(parts);
+		return (__TRUE);
+	}
+	printf("warniong error!\nformat no valid\n");
+	ft_freesplit(parts);
+	return (__FALSE);
+}
+
+t_vars	*ft_init_tvars()
+{
+	t_vars	*var;
+	t_img	*im;
+	
+	var = ft_calloc(1, sizeof(t_vars));
+	im = ft_calloc(1, sizeof(t_img));
+	var->img = im;
+	// if (!var->img->image)
+	// 	printf("var->img->image is Null\n");
+	return (var);
+}
+
+int	ft_xbutton_destroy(t_vars *xvar)
+{
+	printf("xbutton pressed\n");
+	ft_exitprocss(EXIT_SUCCESS, xvar);
 	return (0);
 }
-*/
+
+int	ft_keyhook(int keycode, t_vars *xvar)
+{
+	printf("keypressed code: %d\n", keycode);
+	if (keycode == __ESC)
+		ft_exitprocss(EXIT_SUCCESS, xvar);
+	return (0);
+}
+
+int	ft_fdf(t_vars *xvar)
+{
+	xvar->mlx = mlx_init();
+	xvar->win = mlx_new_window(xvar->mlx, 1900, 880, "fdf project");
+/*	xvar->img->image = mlx_new_image(xvar->mlx, 1200, 500);
+	mlx_get_data_addr(xvar->img->image, &(xvar->img->bpp), \
+					&(xvar->img->size_line), &(xvar->img->endian));
+	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
+*/	// printf("i'm here\n");
+	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_destroy, xvar);
+	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
+	mlx_loop(xvar->mlx);
+	return (__NTR);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_vars	*xvar;
+
+	xvar = ft_init_tvars();
+	if (argc < 2)
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	if (ft_checkextension(argv[1]) == __FALSE)
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	xvar->fd = open(argv[1], O_RDONLY);
+	if (xvar->fd == -1)
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	ft_fdf(xvar);
+
+	ft_exitprocss(EXIT_SUCCESS, xvar);
+	return (EXIT_SUCCESS);
+}
