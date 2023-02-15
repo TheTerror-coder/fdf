@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/12 13:29:41 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/12 15:27:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 typedef struct s_img
 {
+	char	*addr;
 	int		bpp;	//bits per pixel
 	int		size_line;
 	int		endian;
