@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/15 16:48:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 22:49:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,72 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	ft_drw_line(t_data *data, t_coord *start, t_coord *end, int color)
+void	ft_join_pt(t_data *data, double x0, double m, t_coord *pt, int color)
 {
-	double	n;
+	double	y;
 
-	n = sin(end->z) - sin(start->z);
-	if (n < 0)
-		n *= -1;
-	while (start->x < end->x)
+	y = 0;
+	while (x0 <= pt->x)
 	{
-		start->y = (int) (n + start->x);
-		if (n > 0)
-			start->y = 0;
-		my_mlx_pixel_put(data, end->x + start->x, end->y + start->y, color);
-		start->x++;
+		y = m * x0 + (pt->y - m * pt->x);
+		if (y >= 0)
+			my_mlx_pixel_put(data, x0, y, color);
+		x0++;
 	}
+	printf("x = %f\n", x0);
+	printf("y = %f\n", y);
+}
+
+void	ft_vert_line(t_data *data, double y0, t_coord *pt, int color)
+{
+	double	x;
+
+	x = pt->x;
+	while (y0 <= pt->y)
+	{
+		my_mlx_pixel_put(data, x, y0, color);
+		y0++;
+	}
+}
+
+void	ft_hor_line(t_data *data, double x0, t_coord *pt, int color)
+{
+	double	y;
+
+	y = pt->y;
+	while (x0 <= pt->x)
+	{
+		my_mlx_pixel_put(data, x0, y, color);
+		x0++;
+	}
+}
+
+void	ft_drw_line(t_data *data, t_coord *pt1, t_coord *pt2, int color)
+{
+	double	dx;
+	double	dy;
+
+	dx = pt2->x - pt1->x;
+	dy = (pt2->y - pt1->y);
+	if (dx == 0)
+	{
+		if (dy < 0)
+			ft_vert_line(data, pt2->y, pt1, color);
+		if (dy > 0)
+			ft_vert_line(data, pt1->y, pt2, color);
+	}
+	else if (dy == 0)
+	{
+		if (dx < 0)
+			ft_hor_line(data, pt2->x, pt1, color);
+		if (dx > 0)
+			ft_hor_line(data, pt1->x, pt2, color);
+	}
+	else if (dx < 0)
+		ft_join_pt(data, pt2->x, (dy / dx), pt1, color);
+	else if (dx > 0)
+		ft_join_pt(data, pt1->x, (dy / dx), pt2, color);
+	printf("m = %f\n", dx);
 }
 
 int	main(void)
@@ -63,10 +114,10 @@ int	main(void)
 	t_coord *pt2 = ft_calloc(1, sizeof(t_coord));
 	t_coord *pt3 = ft_calloc(1, sizeof(t_coord));
 	t_coord *pt4 = ft_calloc(1, sizeof(t_coord));
-	int	color = 0x00FF0000;
+	int	color = 0x00FFFFFF;
 
-	pt1->x = 0;
-	pt1->y = 30;
+	pt1->x = 15;
+	pt1->y = 60;
 	pt1->z = 0;
 
 	pt2->x = 15;
@@ -74,10 +125,10 @@ int	main(void)
 	pt2->z = 0;
 
 	pt3->x = 30;
-	pt3->y = 30;
+	pt3->y = 45;
 	pt3->z = 10;
 	
-	pt4->x = 45;
+	pt4->x = 60;
 	pt4->y = 30;
 	pt4->z = 10;
 	mlx_ptr = mlx_init();
