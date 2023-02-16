@@ -6,110 +6,26 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/15 22:49:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 01:19:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 #include<stdio.h>
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct	s_coord
-{
-	int	x;
-	int	y;
-	int	z;
-}				t_coord;
-
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->size_line + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
-}
-
-void	ft_join_pt(t_data *data, double x0, double m, t_coord *pt, int color)
-{
-	double	y;
-
-	y = 0;
-	while (x0 <= pt->x)
-	{
-		y = m * x0 + (pt->y - m * pt->x);
-		if (y >= 0)
-			my_mlx_pixel_put(data, x0, y, color);
-		x0++;
-	}
-	printf("x = %f\n", x0);
-	printf("y = %f\n", y);
-}
-
-void	ft_vert_line(t_data *data, double y0, t_coord *pt, int color)
-{
-	double	x;
-
-	x = pt->x;
-	while (y0 <= pt->y)
-	{
-		my_mlx_pixel_put(data, x, y0, color);
-		y0++;
-	}
-}
-
-void	ft_hor_line(t_data *data, double x0, t_coord *pt, int color)
-{
-	double	y;
-
-	y = pt->y;
-	while (x0 <= pt->x)
-	{
-		my_mlx_pixel_put(data, x0, y, color);
-		x0++;
-	}
-}
-
-void	ft_drw_line(t_data *data, t_coord *pt1, t_coord *pt2, int color)
-{
-	double	dx;
-	double	dy;
-
-	dx = pt2->x - pt1->x;
-	dy = (pt2->y - pt1->y);
-	if (dx == 0)
-	{
-		if (dy < 0)
-			ft_vert_line(data, pt2->y, pt1, color);
-		if (dy > 0)
-			ft_vert_line(data, pt1->y, pt2, color);
-	}
-	else if (dy == 0)
-	{
-		if (dx < 0)
-			ft_hor_line(data, pt2->x, pt1, color);
-		if (dx > 0)
-			ft_hor_line(data, pt1->x, pt2, color);
-	}
-	else if (dx < 0)
-		ft_join_pt(data, pt2->x, (dy / dx), pt1, color);
-	else if (dx > 0)
-		ft_join_pt(data, pt1->x, (dy / dx), pt2, color);
-	printf("m = %f\n", dx);
 }
 
 int	main(void)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_data	img;
+	t_img 	*img = ft_calloc(1, sizeof(t_img));
 	t_coord	*pt1 = ft_calloc(1, sizeof(t_coord));
 	t_coord *pt2 = ft_calloc(1, sizeof(t_coord));
 	t_coord *pt3 = ft_calloc(1, sizeof(t_coord));
@@ -133,13 +49,13 @@ int	main(void)
 	pt4->z = 10;
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, 1820, 880, "Hello world");
-	img.img = mlx_new_image(mlx_ptr, 1820, 880);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	ft_drw_line(&img, pt1, pt2, color);
-	ft_drw_line(&img, pt2, pt3, color);
-	ft_drw_line(&img, pt3, pt4, color);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
+	img->image = mlx_new_image(mlx_ptr, 1820, 880);
+	img->addr = mlx_get_data_addr(img->image, &img->bpp, &img->size_line,
+								&img->endian);
+	ft_drw_line(img, pt1, pt2, color);
+	ft_drw_line(img, pt2, pt3, color);
+	ft_drw_line(img, pt3, pt4, color);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img->image, 0, 0);
 	// mlx_string_put(mlx_ptr, win_ptr, 100, 200, 0x000000FF, "SCREEN!!!!!!");
 	// mlx_string_put(mlx_ptr, win_ptr, 200, 200, 0x0000FF00, "WINDOW");
 	mlx_loop(mlx_ptr);
