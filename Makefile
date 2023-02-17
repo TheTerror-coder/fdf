@@ -1,4 +1,4 @@
-NAME = prog
+NAME = fdf
 LIBFT_PATH = include/libft/
 GNL_PATH = include/get_next_line/
 UTILS_PATH = utils/
@@ -12,7 +12,7 @@ MLX_LINK_OPTIONS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -
 RM = rm -rf
 
 LIBFT_LIB = libft.a
-SRC_UTILS = $(addprefix $(UTILS_PATH), ft_draw.c)
+SRC_UTILS = $(addprefix $(UTILS_PATH), ft_utils1.c ft_draw.c ft_init_del.c ft_mlx_utils.c)
 SRC = ft_fdf.c $(SRC_UTILS)
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/16 01:24:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/17 19:52:29 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,12 @@
 #include "../ft_fdf.h"
 
 void	ft_drw_line(t_img *img, t_coord *pt1, t_coord *pt2, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int	ft_xbutton_destroy(t_vars *xvar);
+int	ft_keyhook(int keycode, t_vars *xvar);
+void	ft_freesplit(char **str);
+t_vars	*ft_init_tvars();
+int	ft_count_str(char **var);
+t_bool	ft_checkextension(char	*name);
 
 #endif

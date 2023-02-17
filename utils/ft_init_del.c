@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf.h                                           :+:      :+:    :+:   */
+/*   ft_init_del.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/17 19:57:15 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/02/17 19:44:50 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_FDF_H
-# define FT_FDF_H
+#include "ft_utils.h"
 
-# include "ft_preprocss.h"
-# include "mlx.h"
-# include<unistd.h>
-# include<math.h>
-# include<sys/types.h>
-# include<sys/stat.h>
-# include<fcntl.h>
+void	ft_freesplit(char **str)
+{
+	int	i;
 
-#include<stdio.h>
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
-# include "./include/libft/libft.h"
-# include "./utils/ft_utils.h"
-
-void	ft_exitprocss(int status, t_vars *params);
-
-#endif
+t_vars	*ft_init_tvars()
+{
+	t_vars	*var;
+	t_img	*im;
+	
+	var = ft_calloc(1, sizeof(t_vars));
+	im = ft_calloc(1, sizeof(t_img));
+	var->img = im;
+	// if (!var->img->image)
+	// 	printf("var->img->image is Null\n");
+	return (var);
+}
