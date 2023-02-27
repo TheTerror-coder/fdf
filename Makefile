@@ -13,7 +13,8 @@ RM = rm -rf
 
 LIBFT_LIB = libft.a
 SRC_UTILS = $(addprefix $(UTILS_PATH), ft_utils1.c ft_draw.c ft_init_del.c ft_mlx_utils.c)
-SRC = ft_fdf.c $(SRC_UTILS)
+SRC_GNL = $(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
+SRC = $(SRC_GNL) ft_fdf.c $(SRC_UTILS)
 OBJ = $(SRC:.c=.o)
 
 %.o : %.c $(INCLUDE)

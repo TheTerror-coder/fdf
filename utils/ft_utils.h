@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/17 19:52:29 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 16:24:36 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	ft_freesplit(char **str);
 t_vars	*ft_init_tvars();
 int	ft_count_str(char **var);
 t_bool	ft_checkextension(char	*name);
+t_bool	ft_checkinframe(int val, int height, int width);
 
 #endif

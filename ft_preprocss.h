@@ -6,24 +6,33 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/16 01:35:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/27 13:45:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PREPROCSS_H
 # define FT_PREPROCSS_H
 
+# define _SIZE_X 1440 //window's x size
+# define _SIZE_Y 900 //window's y size
+# define _WIDHT 1440 //image's widht
+# define _HEIGHT 900 //image's height
+
 # define __NTR -100 //Nothing To Report
 # define __ON_DESTROY 17 //Button x window killer
 # define __ON_KEYDOWN 2
 # define __KEYPRESSMASK 1L<<0
-# define __ESC 65307
+# define __ESC 65307 //ESCape key
+# define __STEP 200 //step lenght between two points
+
+# define _OX 300
+# define _OY 300
 
 typedef struct	s_coord
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }				t_coord;
 
 typedef struct s_img
@@ -33,8 +42,6 @@ typedef struct s_img
 	int		size_line;
 	int		endian;
 	void	*image;
-	int		x_img;
-	int		y_img;
 }				t_img;
 
 typedef struct s_vars
@@ -43,6 +50,8 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	t_img	*img;
+	t_coord *p1;
+	t_coord *p2;
 }				t_vars;
 
 typedef enum e_bool

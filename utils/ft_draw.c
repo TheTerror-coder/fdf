@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:39:33 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/16 01:20:15 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 16:23:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,18 @@ void	ft_join_pt(t_img *img, double x0, double m, t_coord *pt, int color)
 	while (x0 <= pt->x)
 	{
 		y = m * x0 + (pt->y - m * pt->x);
-		if (y >= 0)
+		if (ft_checkinframe(y, _HEIGHT, _WIDHT) != __FALSE && \
+			ft_checkinframe(x0, _HEIGHT, _WIDHT) != __FALSE)
 			my_mlx_pixel_put(img, x0, y, color);
 		x0++;
 	}
+}
+
+t_bool	ft_checkinframe(int val, int height, int width)
+{
+	if (val < 0 || val > width || val > height)
+		return (__FALSE);
+	return (__TRUE);
 }
 
 void	ft_vert_line(t_img *img, double y0, t_coord *pt, int color)
