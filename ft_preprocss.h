@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/27 13:45:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:21:15 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 # define __ON_KEYDOWN 2
 # define __KEYPRESSMASK 1L<<0
 # define __ESC 65307 //ESCape key
-# define __STEP 200 //step lenght between two points
+# define __STEP 30 //step lenght between two points
 
 # define _OX 300
 # define _OY 300
+
+# define PERC_J 0.5 //Percentage of STEP defining the step on j axis
+# define PERC_K 8.0 //Percentage of STEP defining the step on k axis
 
 typedef struct	s_coord
 {
@@ -34,6 +37,12 @@ typedef struct	s_coord
 	double	y;
 	double	z;
 }				t_coord;
+
+typedef struct	s_vec
+{
+	t_coord	*o;
+	t_coord *e;
+}				t_vec;
 
 typedef struct s_img
 {

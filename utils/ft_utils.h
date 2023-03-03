@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/24 16:24:36 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 16:57:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,12 @@ t_vars	*ft_init_tvars();
 int	ft_count_str(char **var);
 t_bool	ft_checkextension(char	*name);
 t_bool	ft_checkinframe(int val, int height, int width);
+void	ft_ad_in3dspot(t_coord *pt);
+void	ft_add_step(t_coord *pt);
+void	ft_cpyvertex(t_coord *dst, t_coord *src);
+void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color);
+void	ft_drw_2dspot(t_vars *xvar);
+void	ft_drw_3dspot(t_vars *xvar);
+double	ft_percent(double n, double per);
 
 #endif

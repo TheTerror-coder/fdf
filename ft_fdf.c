@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/27 13:54:35 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:21:48 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,47 +71,74 @@ double	ft_vec_norm(t_coord *o, t_coord *i)
 	return (norm);
 }
 
-void ft_drwspot(t_vars *xvar)
+void	ft_3d_to_2dbase(t_coord *pt)
 {
-	t_coord *o;
 	t_coord *i;
+	t_coord *j;
+	t_coord *k;
 
-	o = ft_calloc(1, sizeof(t_coord));
 	i = ft_calloc(1, sizeof(t_coord));
-	o->x = 0;
-	o->y = _OY;
-	i->x = _WIDHT;
-	i->y = _OY;
-	ft_drw_line(xvar->img, o, i, 0xFFFFFF);
-	o->x = _OX;
-	o->y = 0;
-	i->x = _OX;
-	i->y = _HEIGHT;
-	ft_drw_line(xvar->img, o, i, 0xFFFFFF);
-	free(o);
+	j = ft_calloc(1, sizeof(t_coord));
+	k = ft_calloc(1, sizeof(t_coord));
+	i->x = pt->x * sin(1.047197551214944);
+	i->y = pt->x * cos(1.047197551214944);
+	j->x = pt->y * (- sin(1.047197551214944) - ft_percent(__STEP, PERC_J));
+	j->y = pt->y * (cos(1.047197551214944) + ft_percent(__STEP, PERC_J));
+	k->x = pt->z * 0;
+	k->y = pt->z * -1;
+	pt->x = i->x;
+	pt->y = i->y;
+	pt->x += j->x;
+	pt->y += j->y;
+	pt->x += (k->x  / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
+	pt->y += (k->y / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
+	pt->z = 0;
 	free(i);
+	free(j);
+	free(k);
 }
 
-void test(t_vars *xvar)
+void	test(t_vars *xvar)
 {
 	t_coord *o;
-	t_coord *i;
+	t_coord *a;
+	t_coord *b;
+	t_coord *c;
+	t_coord *d;
+	int	color = 0xe8f702;
 
 	o = ft_calloc(1, sizeof(t_coord));
-	i = ft_calloc(1, sizeof(t_coord));
-	o->x = _OX;
-	o->y = _OY;
-	i->x = _OX;
-	i->y = _OY - __STEP;
-	ft_drw_line(xvar->img, o, i, 0xFF00);
-	i->x = _OX - __STEP * sin(1.047197551214944);
-	i->y = _OY + __STEP * cos(1.047197551214944);
-	ft_drw_line(xvar->img, o, i, 0xFF00);
-	i->x = _OX + __STEP * sin(1.047197551214944);
-	i->y = _OY + __STEP * cos(1.047197551214944);
-	ft_drw_line(xvar->img, o, i, 0xFF00);
+	a = ft_calloc(1, sizeof(t_coord));
+	b = ft_calloc(1, sizeof(t_coord));
+	c = ft_calloc(1, sizeof(t_coord));
+	d = ft_calloc(1, sizeof(t_coord));
+	o->x = 0;
+	o->y = 0;
+	a->x = 1;
+	a->y = 1;
+	a->z = 0;
+	b->x = 2;
+	b->y = 1;
+	b->z = 0;
+	c->x = 1;
+	c->y = 2;
+	c->z = 0;
+	d->x = 2;
+	d->y = 2;
+	d->z = 10;
+	ft_3d_to_2dbase(a);
+	ft_3d_to_2dbase(b);
+	ft_3d_to_2dbase(c);
+	ft_3d_to_2dbase(d);
+	ft_drwin_3dspot(xvar, a, b, color);
+	ft_drwin_3dspot(xvar, a, c, color);
+	ft_drwin_3dspot(xvar, c, d, color);
+	ft_drwin_3dspot(xvar, b, d, color);
 	free(o);
-	free(i);
+	free(a);
+	free(b);
+	free(c);
+	free(d);
 }
 
 int	ft_fdf(t_vars *xvar)
@@ -121,11 +148,11 @@ int	ft_fdf(t_vars *xvar)
 	xvar->img->image = mlx_new_image(xvar->mlx, _WIDHT, _HEIGHT);
 	xvar->img->addr = mlx_get_data_addr(xvar->img->image, &(xvar->img->bpp), \
 					&(xvar->img->size_line), &(xvar->img->endian));
-	ft_drwspot(xvar);
+	ft_drw_2dspot(xvar);
+	ft_drw_3dspot(xvar);
 	test(xvar);
 	// ft_fdf_op(xvar);
 	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
-	// printf("i'm here\n");
 	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_destroy, xvar);
 	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
 	mlx_loop(xvar->mlx);
