@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/02/18 15:48:36 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/07 17:37:36 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,21 @@ void	ft_freesplit(char **str)
 
 t_vars	*ft_init_tvars()
 {
-	t_vars	*var;
+	t_vars	*xvar;
 	t_img	*im;
 	t_coord	*p1;
 	t_coord	*p2;
 	
-	var = ft_calloc(1, sizeof(t_vars));
+	xvar = ft_calloc(1, sizeof(t_vars));
 	im = ft_calloc(1, sizeof(t_img));
 	p1 = ft_calloc(1, sizeof(t_coord));
 	p2 = ft_calloc(1, sizeof(t_coord));
-	var->img = im;
-	var->p1 = p1;
-	var->p2 = p2;
-	// if (!var->img->image)
-	// 	printf("var->img->image is Null\n");
-	return (var);
+	xvar->img = im;
+	xvar->p1 = p1;
+	xvar->p2 = p2;
+	xvar->z_data = NULL;
+	xvar->indxtab = NULL;
+	// if (!xvar->img->image)
+	// 	printf("xvar->img->image is Null\n");
+	return (xvar);
 }

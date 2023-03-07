@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:39:33 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/03 17:22:18 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 14:58:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	ft_join_pt(t_img *img, double x0, double m, t_coord *pt, int color)
 			my_mlx_pixel_put(img, x0, y, color);
 		x0++;
 	}
-}
-
-t_bool	ft_checkinframe(int val, int height, int width)
-{
-	if (val < 0 || val > width || val > height)
-		return (__FALSE);
-	return (__TRUE);
 }
 
 void	ft_vert_line(t_img *img, double y0, t_coord *pt, int color)
@@ -85,6 +78,24 @@ void	ft_drw_line(t_img *img, t_coord *pt1, t_coord *pt2, int color)
 		ft_join_pt(img, pt1->x, (dy / dx), pt2, color);
 }
 
+void	ft_drw_3dspot_op(t_vars *xvars, t_coord *o, t_coord *e, int color)
+{
+	t_coord	*pt1;
+	t_coord	*pt2;
+
+	pt1 = ft_calloc(1, sizeof(t_coord));
+	pt2 = ft_calloc(1, sizeof(t_coord));
+	ft_cpyvertex(pt1, o);
+	ft_cpyvertex(pt2, e);
+	ft_add_step(pt1);
+	ft_add_step(pt2);
+	ft_ad_in3dspot(pt1);
+	ft_ad_in3dspot(pt2);
+	ft_drw_line(xvars->img, pt1, pt2, color);
+	free(pt1);
+	free(pt2);
+}
+
 void	ft_drw_3dspot(t_vars *xvar)
 {
 	t_coord *o;
@@ -100,13 +111,13 @@ void	ft_drw_3dspot(t_vars *xvar)
 	o->y = 0;
 	i->x = sin(1.047197551214944);
 	i->y = cos(1.047197551214944);
-	ft_drwin_3dspot(xvar, o, i, 0xFF);
+	ft_drw_3dspot_op(xvar, o, i, 0xFF);
 	j->x = - sin(1.047197551214944) - ft_percent(__STEP, PERC_J);
 	j->y = cos(1.047197551214944) + ft_percent(__STEP, PERC_J);
-	ft_drwin_3dspot(xvar, o, j, 0xFF0000);
+	ft_drw_3dspot_op(xvar, o, j, 0xFF0000);
 	k->x = 0;
 	k->y = -1;
-	ft_drwin_3dspot(xvar, o, k, 0xFF00);
+	ft_drw_3dspot_op(xvar, o, k, 0xFF00);
 	free(o);
 	free(i);
 	free(j);

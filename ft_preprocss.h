@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/03 17:21:15 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/07 17:01:10 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ typedef struct s_vars
 	t_img	*img;
 	t_coord *p1;
 	t_coord *p2;
+	int		*indxtab;
+	double	**z_data;
+	int		n;
+	int		jx;
 }				t_vars;
 
 typedef enum e_bool
