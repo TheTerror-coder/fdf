@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:17:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/03 16:56:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/07 18:36:52 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,33 @@ void	ft_cpyvertex(t_coord *dst, t_coord *src)
 	dst->z = src->z;
 }
 
+void	ft_3d_to_2dbase(t_coord *pt)
+{
+	t_coord *i;
+	t_coord *j;
+	t_coord *k;
+
+	i = ft_calloc(1, sizeof(t_coord));
+	j = ft_calloc(1, sizeof(t_coord));
+	k = ft_calloc(1, sizeof(t_coord));
+	i->x = pt->x * sin(1.047197551214944);
+	i->y = pt->x * cos(1.047197551214944);
+	j->x = pt->y * (- sin(1.047197551214944) - ft_percent(__STEP, PERC_J));
+	j->y = pt->y * (cos(1.047197551214944) + ft_percent(__STEP, PERC_J));
+	k->x = pt->z * 0;
+	k->y = pt->z * -1;
+	pt->x = i->x;
+	pt->y = i->y;
+	pt->x += j->x;
+	pt->y += j->y;
+	pt->x += (k->x  / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
+	pt->y += (k->y / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
+	pt->z = 0;
+	free(i);
+	free(j);
+	free(k);
+}
+
 void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color)
 {
 	t_coord	*pt1;
@@ -49,6 +76,8 @@ void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color)
 	pt2 = ft_calloc(1, sizeof(t_coord));
 	ft_cpyvertex(pt1, o);
 	ft_cpyvertex(pt2, e);
+	ft_3d_to_2dbase(pt1);
+	ft_3d_to_2dbase(pt2);
 	ft_add_step(pt1);
 	ft_add_step(pt2);
 	ft_ad_in3dspot(pt1);
@@ -58,14 +87,14 @@ void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color)
 	free(pt2);
 }
 
-int	ft_count_str(char **var)
+int	ft_lensplit(char **sstr)
 {
 	int	i;
 
 	i = 0;
-	if (!var)
+	if (!sstr)
 		return (0);
-	while (var[i])
+	while (sstr[i])
 		i++;
 	return (i);
 }
@@ -78,7 +107,7 @@ t_bool	ft_checkextension(char	*name)
 	parts = ft_split(name, '.');
 	if (!parts)
 		return (__FALSE);
-	if (ft_count_str(parts) != 2 || ft_strlen(parts[1]) != 3)
+	if (ft_lensplit(parts) != 2 || ft_strlen(parts[1]) != 3)
 	{
 		printf("format no valid!\n");
 		ft_freesplit(parts);

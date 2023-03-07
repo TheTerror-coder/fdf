@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 18:08:45 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/07 18:41:22 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,58 +103,22 @@ void	ft_getdatas(double *dest, char **src)
 	}
 }
 
-void	ft_mk_zdata(t_vars *xvar, double **new_z, char **data)
-{
-	// int	i;
-	int	j;
-
-	// i = 0;
-	j = 0;
-	if (xvar->n == 0 && xvar->jx == 0)
-		xvar->jx = 1;
-	new_z = ft_calloc(xvar->jx, sizeof(double *));
-	if (!new_z)
-		return ;
-	while (j < xvar->jx)
-	{
-		new_z[j] = ft_calloc(xvar->n, sizeof(double));
-		if (!new_z[j])
-			return ;
-		ft_getdatas(new_z[j], data);
-		j++;
-	}
-}
-
-
-
 
 void test1()
 {
-	int	i;
-	t_vars *xvar;
-	
+	int i;
+	char	**data;
+
 	i = 0;
-	xvar = ft_init_tvars();
-	xvar->jx = 1;
-	xvar->n = 1;
-	ft_addindex(xvar, xvar->n);
-	xvar->jx = 2;
-	xvar->n = 2;
-	ft_addindex(xvar, xvar->n);
-	xvar->jx = 3;
-	xvar->n = 3;
-	ft_addindex(xvar, xvar->n);
-	xvar->jx = 4;
-	xvar->n = 4;
-	ft_addindex(xvar, xvar->n);
-	xvar->jx = 5;
-	xvar->n = 5;
-	ft_addindex(xvar, xvar->n);
-	while (i < xvar->jx)
+	data = NULL;
+	data = ft_split("aIS SIQAE IEUEH FEHI", ' ');
+	while (data[i])
 	{
-		printf("indextab: %d\n", xvar->indxtab[i]);
+		printf("data: %s\n", data[i]);
 		i++;
 	}
+	printf("len: %d\n", ft_lensplit(data));
+	ft_freesplit(data);
 }
 
 int	ft_fdf(t_vars *xvar)
