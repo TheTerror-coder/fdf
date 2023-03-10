@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:34:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 21:07:02 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 16:24:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,52 +32,57 @@ double	*ft_zdata(char **data)
 	return (tab);
 }
 
-void	ft_freezdata(t_vars *xvar)
+t_bool	ft_cpyzdata(t_vars *xvar, double **dest, double **src, int nline)
 {
-	int	i;
+	int	j;
 
-	i = 0;
-			printf("ft_freezdata()\n");
-	if (xvar->z_data)
+	j = 0;
+	while (j < nline)
 	{
-			printf("jx: %d\n", xvar->jx);
-		while (i < (xvar->jx - 1))
+		dest[j] = ft_calloc(xvar->indxtab[j], sizeof(double));
+		if (!dest[j])
 		{
-			printf("i: %d, @: %p\n", i, xvar->z_data[i]);
-			if (xvar->z_data[i])
-				free(xvar->z_data[i]);
-			xvar->z_data[i] = NULL;
-			i++;
-			printf("IIIIIIIIIII\n");
+			j--;
+			while (j >= 0)
+			{
+				if (dest[j])
+					free(dest[j]);
+				dest[j] = NULL;
+				j--;
+			}
+			return (__FALSE);
 		}
-		printf("j: %d, @: %p\n", i, xvar->z_data);
-		free(xvar->z_data);
-		xvar->z_data = NULL;
-			printf("EEEEEEEEEEE\n");
+		dest[j] = ft_memmove(dest[j], src[j], sizeof(double) * xvar->indxtab[j]);
+		j++;
 	}
+	return (__TRUE);
 }
 
 t_bool	ft_add_zdata(t_vars *xvar, char **data)
 {
 	double	**tab;
 
-			printf("ft_addzdata()\n");
 	tab = NULL;
 	if (xvar->jx)
 	{
 		tab = ft_calloc(xvar->jx, sizeof(double *));
 		if (!tab)
 			return (__FALSE);
-		tab = ft_memmove(tab, xvar->z_data, sizeof(double *) * (xvar->jx - 1));
+		if (ft_cpyzdata(xvar, tab, xvar->z_data, xvar->jx - 1) == __FALSE)
+		{
+			free(tab);
+			return (__FALSE);
+		}
 		tab[xvar->jx - 1] = ft_zdata(data);
-			printf("tab @: %p\n", tab[0]);
-		if (xvar->z_data)
-			printf("zdata @: %p\n",xvar->z_data[0]);
+		if (!tab[xvar->jx - 1])
+		{
+			ft_freezdata(tab, xvar->jx);
+			return (__FALSE);
+		}
 	}
 	if (xvar->z_data)
-		ft_freezdata(xvar);
+		ft_freezdata(xvar->z_data, xvar->jx);
 	xvar->z_data = tab;
-	tab = NULL;
 	return (__TRUE);
 }
 
@@ -85,21 +90,26 @@ t_bool	ft_finddata(t_vars *xvar, char *line)
 {
 	char	**data;
 
+	xvar->fdbk = __TRUE;
 	data = NULL;
 	data = ft_split(line, ' ');
 	if (!data)
 		return (__FALSE);
 	xvar->n = ft_lensplit(data);
-									/*A revoir*/ft_addindex(xvar, xvar->n);
-	ft_add_zdata(xvar, data);
+	if (xvar->fdbk == __TRUE)
+		xvar->fdbk = ft_addindex(xvar, xvar->n);
+	if (xvar->fdbk == __TRUE)
+		xvar->fdbk = ft_add_zdata(xvar, data);
 	ft_freesplit(data);
-	return (__TRUE);
+	return (xvar->fdbk);
 }
 
 t_bool	ft_getdata(t_vars *xvar)
 {
 	char	*line;
 
+	xvar->fdbk = __TRUE;
+	line = NULL;
 	xvar->jx = 0;
 	line = get_next_line(xvar->fd);
 	if (!line)
@@ -107,9 +117,11 @@ t_bool	ft_getdata(t_vars *xvar)
 	while (line)
 	{
 		xvar->jx++;
-		ft_finddata(xvar, line);
+		xvar->fdbk = ft_finddata(xvar, line);
 		free(line);
 		line = NULL;
+		if (xvar->fdbk == __FALSE)
+			return (__FALSE);
 		line = get_next_line(xvar->fd);
 	}
 	return (__TRUE);

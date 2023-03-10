@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:17:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 18:36:52 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 17:11:00 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_3d_to_2dbase(t_coord *pt)
 	free(k);
 }
 
-void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color)
+void	ft_drwin_3dspot(t_vars *xvar, t_coord *o, t_coord *e, int color)
 {
 	t_coord	*pt1;
 	t_coord	*pt2;
@@ -82,9 +82,14 @@ void	ft_drwin_3dspot(t_vars *xvars, t_coord *o, t_coord *e, int color)
 	ft_add_step(pt2);
 	ft_ad_in3dspot(pt1);
 	ft_ad_in3dspot(pt2);
-	ft_drw_line(xvars->img, pt1, pt2, color);
+	ft_drw_line(xvar->img, pt1, pt2, color);
 	free(pt1);
 	free(pt2);
+}
+
+void	ft_drw_vector(t_vars *xvar, t_vec *vec, int	color)
+{
+	ft_drwin_3dspot(xvar, vec->o, vec->e, color);
 }
 
 int	ft_lensplit(char **sstr)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 17:01:10 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 16:23:46 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ typedef struct s_img
 	void	*image;
 }				t_img;
 
+
+typedef enum e_bool
+{
+	__FALSE = -999999,
+	__TRUE = -111111
+}				t_bool;
+
 typedef struct s_vars
 {
 	int		fd;
@@ -63,14 +70,9 @@ typedef struct s_vars
 	t_coord *p2;
 	int		*indxtab;
 	double	**z_data;
-	int		n;
 	int		jx;
+	int		n;
+	t_bool	fdbk;
 }				t_vars;
-
-typedef enum e_bool
-{
-	__FALSE = 0,
-	__TRUE = 1
-}				t_bool;
 
 #endif

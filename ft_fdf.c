@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 18:41:22 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 17:17:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_exitprocss(int status, t_vars *xvar)
 	free(xvar->img);
 	free(xvar->p1);
 	free(xvar->p2);
+	ft_freezdata(xvar->z_data, xvar->jx);
+	free(xvar->indxtab);
 	free(xvar);
 	exit(status);
 }
@@ -43,6 +45,10 @@ void	test(t_vars *xvar)
 	t_coord *b;
 	t_coord *c;
 	t_coord *d;
+	t_vec	*ab;
+	t_vec	*ac;
+	t_vec	*cd;
+	t_vec	*bd;
 	int	color = 0xe8f702;
 
 	o = ft_calloc(1, sizeof(t_coord));
@@ -50,6 +56,10 @@ void	test(t_vars *xvar)
 	b = ft_calloc(1, sizeof(t_coord));
 	c = ft_calloc(1, sizeof(t_coord));
 	d = ft_calloc(1, sizeof(t_coord));
+	ab = ft_calloc(1, sizeof(t_vec));
+	ac = ft_calloc(1, sizeof(t_vec));
+	cd = ft_calloc(1, sizeof(t_vec));
+	bd = ft_calloc(1, sizeof(t_vec));
 	o->x = 0;
 	o->y = 0;
 	a->x = 1;
@@ -64,10 +74,18 @@ void	test(t_vars *xvar)
 	d->x = 2;
 	d->y = 2;
 	d->z = 10;
-	ft_drwin_3dspot(xvar, a, b, color);
-	ft_drwin_3dspot(xvar, a, c, color);
-	ft_drwin_3dspot(xvar, c, d, color);
-	ft_drwin_3dspot(xvar, b, d, color);
+	ab->o = a;
+	ab->e = b;
+	ac->o = a;
+	ac->e = c;
+	cd->o = c;
+	cd->e = d;
+	bd->o = b;
+	bd->e = d;
+	ft_drw_vector(xvar, ab, color);
+	ft_drw_vector(xvar, ac, color);
+	ft_drw_vector(xvar, cd, color);
+	ft_drw_vector(xvar, bd, color);
 	free(o);
 	free(a);
 	free(b);
@@ -75,50 +93,25 @@ void	test(t_vars *xvar)
 	free(d);
 }
 
-int	ft_count_dgit(int n)
-{
-	int len;
-
-	len = 0;
-	if (!n)
-		return (1);
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-void	ft_getdatas(double *dest, char **src)
+void test1(t_vars *xvar)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (!src || !dest)
-		return ;
-	while (src[i])
+	j = 0;
+	while (j < xvar->jx)
 	{
-		dest[i] = (double) ft_atoi(src[i]);
-		i++;
+		i = 0;
+		// printf("j = %d\n", j);
+		while (i < xvar->indxtab[j])
+		{
+			printf("%.1f ", xvar->z_data[j][i]);
+			i++;
+		}
+		printf("\n");
+		j++;
 	}
-}
-
-
-void test1()
-{
-	int i;
-	char	**data;
-
-	i = 0;
-	data = NULL;
-	data = ft_split("aIS SIQAE IEUEH FEHI", ' ');
-	while (data[i])
-	{
-		printf("data: %s\n", data[i]);
-		i++;
-	}
-	printf("len: %d\n", ft_lensplit(data));
-	ft_freesplit(data);
 }
 
 int	ft_fdf(t_vars *xvar)
@@ -130,8 +123,9 @@ int	ft_fdf(t_vars *xvar)
 					&(xvar->img->size_line), &(xvar->img->endian));
 	ft_drw_2dspot(xvar);
 	ft_drw_3dspot(xvar);
-	test1();
-	// test(xvar);
+	ft_getdata(xvar);
+	test1(xvar);
+	test(xvar);
 	// ft_fdf_op(xvar);
 	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
 	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_destroy, xvar);

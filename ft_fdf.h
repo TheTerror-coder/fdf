@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/07 16:38:22 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/10 17:22:50 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "./include/libft/libft.h"
 # include "./include/get_next_line/get_next_line.h"
 # include "./utils/ft_utils.h"
-# include "./getdata/ft_getdata.h"
+# include "./computedata/ft_getdata.h"
 
 void	ft_exitprocss(int status, t_vars *params);
 
