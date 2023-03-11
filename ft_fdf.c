@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/10 17:17:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/11 16:20:48 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ void	test(t_vars *xvar)
 	free(b);
 	free(c);
 	free(d);
+	free(ab);
+	free(ac);
+	free(cd);
+	free(bd);
 }
 
 void test1(t_vars *xvar)

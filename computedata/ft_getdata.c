@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:34:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/10 16:24:49 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/11 16:46:10 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ t_bool	ft_add_zdata(t_vars *xvar, char **data)
 		tab[xvar->jx - 1] = ft_zdata(data);
 		if (!tab[xvar->jx - 1])
 		{
-			ft_freezdata(tab, xvar->jx);
+			ft_freezdata(tab, xvar->jx - 1);
 			return (__FALSE);
 		}
 	}
 	if (xvar->z_data)
-		ft_freezdata(xvar->z_data, xvar->jx);
+		ft_freezdata(xvar->z_data, xvar->jx - 1);
 	xvar->z_data = tab;
 	return (__TRUE);
 }
@@ -116,6 +116,7 @@ t_bool	ft_getdata(t_vars *xvar)
 		return (__FALSE);
 	while (line)
 	{
+		printf ("HHHHHHHHHH\n");
 		xvar->jx++;
 		xvar->fdbk = ft_finddata(xvar, line);
 		free(line);
