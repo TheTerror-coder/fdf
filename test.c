@@ -50,7 +50,7 @@ void	ft_tryfree_fa1v(t_vec *vec, t_coord *o, t_coord *e)
 	vec = NULL;
 }
 
-t_vec	*ft_alloc_1vec(unsigned int nmemb, unsigned int size) //, int n)
+t_vec	*ft_alloc_1vec(unsigned int nmemb, unsigned int size)
 {
 	t_vec	*vec;
 	t_coord	*o;
@@ -59,8 +59,6 @@ t_vec	*ft_alloc_1vec(unsigned int nmemb, unsigned int size) //, int n)
 	o = NULL;
 	e = NULL;
 	vec = NULL;
-	// if (n == 1)
-	// 	return (NULL);
 	o = ft_calloc(1, sizeof(t_coord));
 	e = ft_calloc(1, sizeof(t_coord));
 	vec = ft_calloc(nmemb, size);
@@ -102,7 +100,7 @@ t_vec	**ft_alloclist_vec(unsigned int nmemb, unsigned int size)
 		return (NULL);
 	while (i < nmemb - 1)
 	{
-		vec = ft_alloc_1vec(1, sizeof(t_vec));//, i);
+		vec = ft_alloc_1vec(1, sizeof(t_vec));
 		if (!vec)
 		{
 			list[i] = NULL;
