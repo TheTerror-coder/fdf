@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/10 17:16:17 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/12 21:14:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,9 @@ void	ft_drw_3dspot(t_vars *xvar);
 double	ft_percent(double n, double per);
 void	ft_3d_to_2dbase(t_coord *pt);
 void	ft_drw_vector(t_vars *xvar, t_vec *vec, int	color);
+t_vec	*ft_alloc_vect(unsigned int nmemb, unsigned int size);
+void	ft_free_vect(t_vec *vec, t_coord *o, t_coord *e);
+t_vec	**ft_alloclist_vec(unsigned int nmemb, unsigned int size);
+void	ft_free_listvec(t_vec **list);
 
 #endif

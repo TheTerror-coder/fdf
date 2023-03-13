@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/10 16:23:46 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/12 20:54:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_vars
 	t_coord *p2;
 	int		*indxtab;
 	double	**z_data;
+	t_vec	**list;
 	int		jx;
 	int		n;
 	t_bool	fdbk;

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/11 16:20:48 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/13 13:27:04 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,22 +100,17 @@ void	test(t_vars *xvar)
 void test1(t_vars *xvar)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (j < xvar->jx)
+	while (i < xvar->jx)
 	{
-		i = 0;
-		// printf("j = %d\n", j);
-		while (i < xvar->indxtab[j])
-		{
-			printf("%.1f ", xvar->z_data[j][i]);
-			i++;
-		}
-		printf("\n");
-		j++;
+		printf("jx: %d -> length: %d\n", i, xvar->indxtab[i]);
+		i++;
 	}
+	i = 0;
+	while (xvar->list[i])
+		i++;
+	printf("total: %d\n", i);
 }
 
 int	ft_fdf(t_vars *xvar)
@@ -128,6 +123,7 @@ int	ft_fdf(t_vars *xvar)
 	ft_drw_2dspot(xvar);
 	ft_drw_3dspot(xvar);
 	ft_getdata(xvar);
+	ft_setvectors(xvar);
 	test1(xvar);
 	test(xvar);
 	// ft_fdf_op(xvar);
