@@ -1,132 +1,147 @@
 #include<stdio.h>
 #include "include/libft/libft.h"
 
-
-typedef struct	s_coord
+typedef enum e_bool
 {
-	double	x;
-	double	y;
-	double	z;
-}				t_coord;
+	__FALSE = -999999,
+	__TRUE = -111111
+}				t_bool;
 
-typedef struct	s_vec
-{
-	t_coord	*o;
-	t_coord *e;
-}				t_vec;
-
-void	ft_free_vect(t_vec *vec, t_coord *o, t_coord *e)
-{
-	if (o)
-		free(o);
-	if (e)
-		free(e);
-	if (vec)
-		free(vec);
-	o = NULL;
-	e = NULL;
-	vec = NULL;
-}
-
-t_vec	*ft_alloc_vect(unsigned int nmemb, unsigned int size)
-{
-	t_vec	*vec;
-	t_coord	*o;
-	t_coord	*e;
-
-	o = NULL;
-	e = NULL;
-	vec = NULL;
-	o = ft_calloc(1, sizeof(t_coord));
-	e = ft_calloc(1, sizeof(t_coord));
-	vec = ft_calloc(nmemb, size);
-	if (!o || !e || !vec)
-	{
-		ft_free_vect(vec, o, e);
-		return (NULL);
-	}
-	vec->o = o;
-	vec->e = e;
-	return (vec);
-}
-
-void	ft_free_listvec(t_vec **list)
+void	ft_freesplit(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (list[i])
+	if (!str)
+		return ;
+	while (str[i])
 	{
-		ft_free_vect(list[i], list[i]->o, list[i]->e);
+		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
-	free(list);
-	list = NULL;
+	free(str);
+	str = NULL;
 }
-
-t_vec	**ft_alloclist_vec(unsigned int nmemb, unsigned int size)
+int	ft_lensplit(char **sstr)
 {
-	unsigned int		i;
-	t_vec	**list;
-	t_vec	*vec;
+	int	i;
 
 	i = 0;
-	list = NULL;
-	vec = NULL;
-	list = ft_calloc(nmemb, size);
-	if (!list)
-		return (NULL);
-	while (i < nmemb - 1)
+	if (!sstr)
+		return (0);
+	while (sstr[i])
+		i++;
+	return (i);
+}
+
+t_bool	ft_contain_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (__FALSE);
+	while (str[i])
 	{
-		vec = ft_alloc_vect(1, sizeof(t_vec));
-		if (!vec)
-		{
-			list[i] = NULL;
-			ft_free_listvec(list);
-			return (NULL);
-		}
-		list[i] = vec;
+		if (ft_isdigit(str[i]))
+			return (__TRUE);
 		i++;
 	}
-	list[i] = NULL;
-	return (list);
+	return (__FALSE);
+}
+
+t_bool	ft_cpy_fill(char **dest, char **src, char *num)
+{
+	int	i;
+
+	i = 0;
+	while (src && src[i])
+	{
+		dest[i] = ft_strdup(src[i]);
+		if (!dest[i])
+			return (__FALSE);
+		i++;
+	}
+	dest[i] = ft_strdup(num);
+	if (!dest[i])
+		return (__FALSE);
+	dest[i + 1] = NULL;
+	return (__TRUE);
+}
+
+char	**ft_add_num(char **sstr, char *num)
+{
+	char	**new;
+	int		len;
+	t_bool	fdbk;
+
+	new = NULL;
+	fdbk = __TRUE;
+	len = ft_lensplit(sstr);
+	new = ft_calloc(len + 2, sizeof(char *));
+	if (!new)
+		fdbk = __FALSE;
+	if (fdbk == __TRUE)
+		fdbk = ft_cpy_fill(new, sstr, num);
+	if (fdbk == __FALSE)
+	{
+		ft_freesplit(new);
+		ft_freesplit(sstr);
+		return (NULL);
+	}
+	ft_freesplit(sstr);
+	sstr = new;
+	return (new);
+}
+
+char	**ft_keepnum(char **data)
+{
+	char	**newdata;
+	int		i;
+
+	i = 0;
+	newdata = NULL;
+	if (!data)
+		return (NULL);
+	while (data[i])
+	{
+		if (ft_contain_num(data[i]) == __TRUE)
+		{
+			newdata = ft_add_num(newdata, data[i]);
+			if (!newdata)
+			{
+				ft_freesplit(newdata);
+				ft_freesplit(data);
+				return (NULL);
+			}
+		}
+		i++;
+	}
+	ft_freesplit(data);
+	return (newdata);
 }
 
 int main()
 {
 	int	i;
-	t_vec	**vec;
-
+	char	**sstr;
+	
 	i = 0;
-	vec = ft_alloclist_vec(3, sizeof(t_vec *));
-	if (!vec)
+	sstr = ft_split(" -7 9 4 0 1 0 0 -1 -1 0 2 1 0 0  \n  - \n", ' ');
+	sstr = ft_keepnum(sstr);
+	if (!sstr)
 	{
-		printf("Error Alloc failed!!\n");
+		printf ("error ft_keepnum() failed!!\n");
+		ft_freesplit(sstr);
 		return (0);
 	}
-	vec[0]->o->x  = 0;
-	vec[0]->o->y  = 0;
-	vec[0]->o->z  = 0;
-	vec[0]->e->x  = 2;
-	vec[0]->e->y  = 2;
-	vec[0]->e->z  = 2;
-	vec[1]->o->x  = 4;
-	vec[1]->o->y  = 4;
-	vec[1]->o->z  = 4;
-	vec[1]->e->x  = 3;
-	vec[1]->e->y  = 3;
-	vec[1]->e->z  = 3;
-
-	while (vec[i])
+	while (sstr[i])
 	{
-		printf("x: %f\n", vec[i]->o->x);
-		printf("y: %f\n", vec[i]->o->y);
-		printf("z: %f\n", vec[i]->o->z);
-		printf("x: %f\n", vec[i]->e->x);
-		printf("y: %f\n", vec[i]->e->y);
-		printf("z: %f\n", vec[i]->e->z);
+		printf("%s\n", sstr[i]);
 		i++;
 	}
-	ft_free_listvec(vec);
+	printf("len: %d\n", i);
+	ft_freesplit(sstr);
 	return 0;
 }
