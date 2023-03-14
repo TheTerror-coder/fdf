@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:34:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/13 12:34:34 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/13 19:31:15 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,93 @@ t_bool	ft_add_zdata(t_vars *xvar, char **data)
 	return (__TRUE);
 }
 
+t_bool	ft_contain_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (__FALSE);
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+			return (__TRUE);
+		i++;
+	}
+	return (__FALSE);
+}
+
+t_bool	ft_cpy_fill(char **dest, char **src, char *num)
+{
+	int	i;
+
+	i = 0;
+	while (src && src[i])
+	{
+		dest[i] = ft_strdup(src[i]);
+		if (!dest[i])
+			return (__FALSE);
+		i++;
+	}
+	dest[i] = ft_strdup(num);
+	if (!dest[i])
+		return (__FALSE);
+	dest[i + 1] = NULL;
+	return (__TRUE);
+}
+
+char	**ft_add_num(char **sstr, char *num)
+{
+	char	**new;
+	int		len;
+	t_bool	fdbk;
+
+	new = NULL;
+	fdbk = __TRUE;
+	len = ft_lensplit(sstr);
+	new = ft_calloc(len + 2, sizeof(char *));
+	if (!new)
+		fdbk = __FALSE;
+	if (fdbk == __TRUE)
+		fdbk = ft_cpy_fill(new, sstr, num);
+	if (fdbk == __FALSE)
+	{
+		ft_freesplit(new);
+		ft_freesplit(sstr);
+		return (NULL);
+	}
+	ft_freesplit(sstr);
+	sstr = new;
+	return (new);
+}
+
+char	**ft_keepnum(char **data)
+{
+	char	**newdata;
+	int		i;
+
+	i = 0;
+	newdata = NULL;
+	if (!data)
+		return (NULL);
+	while (data[i])
+	{
+		if (ft_contain_num(data[i]) == __TRUE)
+		{
+			newdata = ft_add_num(newdata, data[i]);
+			if (!newdata)
+			{
+				ft_freesplit(newdata);
+				ft_freesplit(data);
+				return (NULL);
+			}
+		}
+		i++;
+	}
+	ft_freesplit(data);
+	return (newdata);
+}
+
 t_bool	ft_finddata(t_vars *xvar, char *line)
 {
 	char	**data;
@@ -93,6 +180,9 @@ t_bool	ft_finddata(t_vars *xvar, char *line)
 	xvar->fdbk = __TRUE;
 	data = NULL;
 	data = ft_split(line, ' ');
+	if (!data)
+		return (__FALSE);
+	data = ft_keepnum(data);
 	if (!data)
 		return (__FALSE);
 	xvar->n = ft_lensplit(data);

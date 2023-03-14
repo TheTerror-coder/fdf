@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/13 13:12:37 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/13 19:09:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ void	ft_freesplit(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
 	free(str);
+	str = NULL;
 }
-
 
 void	ft_freezdata(double **arr2, int nline)
 {
