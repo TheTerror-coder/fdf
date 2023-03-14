@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:39:33 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/05 14:58:06 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/14 23:10:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	ft_join_pt(t_img *img, double x0, double m, t_coord *pt, int color)
 	while (x0 <= pt->x)
 	{
 		y = m * x0 + (pt->y - m * pt->x);
-		if (ft_checkinframe(y, _HEIGHT, _WIDHT) != __FALSE && \
-			ft_checkinframe(x0, _HEIGHT, _WIDHT) != __FALSE)
+		if (ft_checkinframe(x0, y, _HEIGHT, _WIDHT) != __FALSE)
 			my_mlx_pixel_put(img, x0, y, color);
 		x0++;
 	}

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/12 21:14:19 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/14 23:09:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vars	*ft_init_tvars();
 void	ft_freezdata(double **arr2, int nline);
 int	ft_lensplit(char **sstr);
 t_bool	ft_checkextension(char	*name);
-t_bool	ft_checkinframe(int val, int height, int width);
+t_bool	ft_checkinframe(int x, int y, int height, int width);
 void	ft_ad_in3dspot(t_coord *pt);
 void	ft_add_step(t_coord *pt);
 void	ft_cpyvertex(t_coord *dst, t_coord *src);
