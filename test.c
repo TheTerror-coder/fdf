@@ -1,147 +1,52 @@
 #include<stdio.h>
 #include "include/libft/libft.h"
+#include "mlx.h"
 
-typedef enum e_bool
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	__FALSE = -999999,
-	__TRUE = -111111
-}				t_bool;
+	char	*dst;
 
-void	ft_freesplit(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
-	}
-	free(str);
-	str = NULL;
-}
-int	ft_lensplit(char **sstr)
-{
-	int	i;
-
-	i = 0;
-	if (!sstr)
-		return (0);
-	while (sstr[i])
-		i++;
-	return (i);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-t_bool	ft_contain_num(char *str)
+int	main(void)
 {
-	int	i;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_data	img;
+	int	x_px = 10;
+	int	y_px = 100;
+	int	color = 0x00FF0000;
 
-	i = 0;
-	if (!str)
-		return (__FALSE);
-	while (str[i])
+
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, 1820, 880, "Hello world");
+	img.img = mlx_new_image(mlx_ptr, 1820, 880);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	while (y_px < 700)
 	{
-		if (ft_isdigit(str[i]))
-			return (__TRUE);
-		i++;
-	}
-	return (__FALSE);
-}
-
-t_bool	ft_cpy_fill(char **dest, char **src, char *num)
-{
-	int	i;
-
-	i = 0;
-	while (src && src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
-		if (!dest[i])
-			return (__FALSE);
-		i++;
-	}
-	dest[i] = ft_strdup(num);
-	if (!dest[i])
-		return (__FALSE);
-	dest[i + 1] = NULL;
-	return (__TRUE);
-}
-
-char	**ft_add_num(char **sstr, char *num)
-{
-	char	**new;
-	int		len;
-	t_bool	fdbk;
-
-	new = NULL;
-	fdbk = __TRUE;
-	len = ft_lensplit(sstr);
-	new = ft_calloc(len + 2, sizeof(char *));
-	if (!new)
-		fdbk = __FALSE;
-	if (fdbk == __TRUE)
-		fdbk = ft_cpy_fill(new, sstr, num);
-	if (fdbk == __FALSE)
-	{
-		ft_freesplit(new);
-		ft_freesplit(sstr);
-		return (NULL);
-	}
-	ft_freesplit(sstr);
-	sstr = new;
-	return (new);
-}
-
-char	**ft_keepnum(char **data)
-{
-	char	**newdata;
-	int		i;
-
-	i = 0;
-	newdata = NULL;
-	if (!data)
-		return (NULL);
-	while (data[i])
-	{
-		if (ft_contain_num(data[i]) == __TRUE)
+		while (x_px < 1810)
 		{
-			newdata = ft_add_num(newdata, data[i]);
-			if (!newdata)
-			{
-				ft_freesplit(newdata);
-				ft_freesplit(data);
-				return (NULL);
-			}
+			my_mlx_pixel_put(&img, x_px, y_px, color);
+			x_px++;
 		}
-		i++;
+		x_px = 10;
+		y_px++;
 	}
-	ft_freesplit(data);
-	return (newdata);
-}
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
+	mlx_string_put(mlx_ptr, win_ptr, 100, 200, 0x000000FF, "SCREEN!!!!!!");
+	mlx_string_put(mlx_ptr, win_ptr, 200, 200, 0x0000FF00, "WINDOW");
+	mlx_loop(mlx_ptr);
 
-int main()
-{
-	int	i;
-	char	**sstr;
-	
-	i = 0;
-	sstr = ft_split(" -7 9 4 0 1 0 0 -1 -1 0 2 1 0 0  \n  - \n", ' ');
-	sstr = ft_keepnum(sstr);
-	if (!sstr)
-	{
-		printf ("error ft_keepnum() failed!!\n");
-		ft_freesplit(sstr);
-		return (0);
-	}
-	while (sstr[i])
-	{
-		printf("%s\n", sstr[i]);
-		i++;
-	}
-	printf("len: %d\n", i);
-	ft_freesplit(sstr);
-	return 0;
+	return (0);
 }
