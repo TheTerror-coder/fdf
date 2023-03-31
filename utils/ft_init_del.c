@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/13 19:09:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 18:32:47 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ t_vars	*ft_init_tvars()
 	xvar->indxtab = NULL;
 	xvar->z_data = NULL;
 	xvar->list = NULL;
+	xvar->ix_list = 0;
+	xvar->lenlist = 0;
 	xvar->jx = 0;
 	xvar->n = 0;
 	xvar->fdbk = __TRUE;

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/14 23:14:33 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 18:32:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define __ON_KEYDOWN 2
 # define __KEYPRESSMASK 1L<<0
 # define __ESC 65307 //ESCape key
-# define __STEP 7 //step lenght between two points
+# define __STEP 30 //step lenght between two points
 
 # define _OX 500
 # define _OY 100
@@ -71,6 +71,8 @@ typedef struct s_vars
 	int		*indxtab;
 	double	**z_data;
 	t_vec	**list;
+	int		ix_list;
+	int		lenlist;
 	int		jx;
 	int		n;
 	t_bool	fdbk;

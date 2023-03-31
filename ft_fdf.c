@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/26 20:03:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 18:34:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,13 @@ void test1(t_vars *xvar)
 	// }
 	i = 0;
 	printf("Before\n");
-	while (xvar->list[i])
+	while (i < xvar->lenlist)
 	{
 		ft_drw_vector(xvar, xvar->list[i], color);
 		i++;
 	}
 	printf("total: %d\n", i);
+	printf("total: %d\n", xvar->lenlist);
 }
 
 int	ft_fdf(t_vars *xvar)
