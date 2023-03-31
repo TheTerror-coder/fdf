@@ -19,7 +19,7 @@ SRC_GNL = $(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
 SRC = $(SRC_DATA_TOOLS) $(SRC_GNL) ft_fdf.c $(SRC_UTILS)
 OBJ = $(SRC:.c=.o)
 
-all : $(NAME) clean
+all : $(NAME)
 
 %.o : %.c $(INCLUDE)
 	$(CC) $(CFLAGS) $(MLX_OBJ_OPTIONS) -c $< -o $@

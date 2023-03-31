@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:06:39 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/13 13:23:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:53:34 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,13 @@ t_bool	ft_collect_line(t_vars *xvar)
 
 t_bool	ft_setvectors(t_vars *xvar)
 {
+	printf("get start\n");
 	if (!xvar->z_data || !xvar->indxtab)
 		return (__TRUE);
 	if (ft_collect_line(xvar) == __FALSE)
 		return (__FALSE);
 	if (ft_collect_col(xvar) == __FALSE)
 		return (__FALSE);
+	printf("get end\n");
 	return (__TRUE);
 }
