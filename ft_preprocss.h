@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/31 18:32:40 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/01 23:59:48 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum e_bool
 typedef struct s_vars
 {
 	int		fd;
+	char	*map;
 	void	*mlx;
 	void	*win;
 	t_img	*img;
@@ -74,7 +75,7 @@ typedef struct s_vars
 	int		ix_list;
 	int		lenlist;
 	int		jx;
-	int		n;
+	int		i;
 	t_bool	fdbk;
 }				t_vars;
 

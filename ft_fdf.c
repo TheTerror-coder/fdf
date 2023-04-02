@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/31 18:34:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 17:23:02 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,66 +35,6 @@ void	ft_exitprocss(int status, t_vars *xvar)
 	free(xvar->indxtab);
 	free(xvar);
 	exit(status);
-}
-
-
-void	test(t_vars *xvar)
-{
-	t_coord *o;
-	t_coord *a;
-	t_coord *b;
-	t_coord *c;
-	t_coord *d;
-	t_vec	*ab;
-	t_vec	*ac;
-	t_vec	*cd;
-	t_vec	*bd;
-	int	color = 0xe8f702;
-
-	o = ft_calloc(1, sizeof(t_coord));
-	a = ft_calloc(1, sizeof(t_coord));
-	b = ft_calloc(1, sizeof(t_coord));
-	c = ft_calloc(1, sizeof(t_coord));
-	d = ft_calloc(1, sizeof(t_coord));
-	ab = ft_calloc(1, sizeof(t_vec));
-	ac = ft_calloc(1, sizeof(t_vec));
-	cd = ft_calloc(1, sizeof(t_vec));
-	bd = ft_calloc(1, sizeof(t_vec));
-	o->x = 0;
-	o->y = 0;
-	a->x = 1;
-	a->y = 1;
-	a->z = 0;
-	b->x = 2;
-	b->y = 1;
-	b->z = 0;
-	c->x = 1;
-	c->y = 2;
-	c->z = 0;
-	d->x = 2;
-	d->y = 2;
-	d->z = 10;
-	ab->o = a;
-	ab->e = b;
-	ac->o = a;
-	ac->e = c;
-	cd->o = c;
-	cd->e = d;
-	bd->o = b;
-	bd->e = d;
-	ft_drw_vector(xvar, ab, color);
-	ft_drw_vector(xvar, ac, color);
-	ft_drw_vector(xvar, cd, color);
-	ft_drw_vector(xvar, bd, color);
-	free(o);
-	free(a);
-	free(b);
-	free(c);
-	free(d);
-	free(ab);
-	free(ac);
-	free(cd);
-	free(bd);
 }
 
 void test1(t_vars *xvar)
@@ -126,11 +66,13 @@ void test1(t_vars *xvar)
 	// }
 	i = 0;
 	printf("Before\n");
-	while (i < xvar->lenlist)
+	printf("lenlist= %d\n", xvar->lenlist);
+	while (i < xvar->lenlist && xvar->list[i])
 	{
 		ft_drw_vector(xvar, xvar->list[i], color);
 		i++;
 	}
+	printf("i= %d\n", i);
 	printf("total: %d\n", i);
 	printf("total: %d\n", xvar->lenlist);
 }
@@ -167,7 +109,10 @@ int	main(int argc, char *argv[])
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	if (ft_checkextension(argv[1]) == __FALSE)
 		ft_exitprocss(EXIT_FAILURE, xvar);
-	xvar->fd = open(argv[1], O_RDONLY);
+	xvar->map = ft_strdup(argv[1]);
+	if (!xvar->map)
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	xvar->fd = open(xvar->map, O_RDONLY);
 	if (xvar->fd == -1)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	ft_fdf(xvar);

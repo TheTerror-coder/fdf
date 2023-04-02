@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/11 17:02:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 17:04:34 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # include "./include/libft/libft.h"
 # include "./include/get_next_line/get_next_line.h"
+#include "./draw_tools/ft_draw_tools.h"
 # include "./utils/ft_utils.h"
 # include "./data_tools/ft_getdata.h"
 

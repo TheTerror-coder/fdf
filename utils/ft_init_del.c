@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/31 18:32:47 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/01 23:59:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_vars	*ft_init_tvars()
 	p1 = ft_calloc(1, sizeof(t_coord));
 	p2 = ft_calloc(1, sizeof(t_coord));
 	xvar->fd = 0;
+	xvar->map = NULL;
 	xvar->img = im;
 	xvar->p1 = p1;
 	xvar->p2 = p2;
@@ -148,7 +149,7 @@ t_vars	*ft_init_tvars()
 	xvar->ix_list = 0;
 	xvar->lenlist = 0;
 	xvar->jx = 0;
-	xvar->n = 0;
+	xvar->i = 0;
 	xvar->fdbk = __TRUE;
 	// if (!xvar->img->image)
 	// 	printf("xvar->img->image is Null\n");

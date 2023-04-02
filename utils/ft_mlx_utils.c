@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:48:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/03/14 23:09:46 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/02 17:02:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,4 @@ int	ft_keyhook(int keycode, t_vars *xvar)
 	if (keycode == __ESC)
 		ft_exitprocss(EXIT_SUCCESS, xvar);
 	return (0);
-}
-
-t_bool	ft_checkinframe(int x, int y, int height, int width)
-{
-	if (x < 0 || y < 0 || x > width || y > height)
-		return (__FALSE);
-	return (__TRUE);
 }
