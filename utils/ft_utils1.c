@@ -6,11 +6,33 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:17:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/02 17:01:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/05 14:52:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
+
+
+void	ft_exitprocss(int status, t_vars *xvar)
+{
+	if (close(xvar->fd) == -1)
+		status = EXIT_FAILURE;
+	if (xvar->mlx)
+	{
+		if (xvar->img->image)
+			mlx_destroy_image(xvar->mlx, xvar->img->image);
+		if (xvar->win)
+			mlx_destroy_window(xvar->mlx, xvar->win);
+		mlx_destroy_display(xvar->mlx);
+		free(xvar->mlx);
+	}
+	ft_free_tvars(xvar);
+	if (status == EXIT_SUCCESS)
+		printf("EXIT_SUCCESS\n");
+	else
+		printf("EXIT_FAILURE\n");
+	exit(status);
+}
 
 double	ft_percent(double n, double per)
 {

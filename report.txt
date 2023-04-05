@@ -1,0 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    report.txt                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/05 14:42:47 by TheTerror         #+#    #+#              #
+#    Updated: 2023/04/05 16:04:14 by TheTerror        ###   ########lyon.fr    #
+#                                                                              #
+# **************************************************************************** #
+
+Les points qui m'ont pris beaucoup de temps et d'énergie:
+	-En plus des fonctions normales de fin de programme de la minilibx c'est-à-dire
+	les fonctions '*destroy*', il faut aussi 'free' l'indentificateur de connexion
+	'mlx_ptr' sinon il restera des leaks.
+
+NB:
+	Un malloc de zero n'echoue pas forcement, il faut donc tester (dans le cas 
+	d'une longueur de champs stocker dans une variable) la variable elle-même si
+	elle est différente de zero avant d'appeler malloc et tout autre équivalent.

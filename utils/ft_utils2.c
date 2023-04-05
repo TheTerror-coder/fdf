@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:14:40 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/02 16:24:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/05 15:23:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_bool	ft_set_jx(t_vars *xvar)
 	if (fd < 0)
 		return (__FALSE);
 	line = get_next_line(fd);
+	if (!line)
+		return (__FALSE);
 	while (line)
 	{
 		xvar->jx++;

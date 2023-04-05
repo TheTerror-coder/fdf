@@ -6,11 +6,11 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:34:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/02 16:22:19 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/05 18:54:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_getdata.h"
+#include "./ft_local.h"
 
 t_bool	ft_getdata_op(t_vars *xvar);
 t_bool	ft_finddata(t_vars *xvar, char *line);
@@ -19,9 +19,10 @@ double	*ft_zdata(char **data);
 
 t_bool	ft_getdata(t_vars *xvar)
 {
-
 	xvar->fdbk = __TRUE;
 	if (ft_set_jx(xvar) == __FALSE)
+		return (__FALSE);
+	if (!xvar->jx)
 		return (__FALSE);
 	xvar->z_data = ft_calloc(xvar->jx, sizeof(double *));
 	if (!xvar->z_data)
@@ -81,8 +82,7 @@ t_bool	ft_finddata(t_vars *xvar, char *line)
 
 t_bool	ft_add_zdata(t_vars *xvar, char **data)
 {
-
-	if (xvar->jx)
+	if (xvar->i < xvar->jx)
 	{
 		xvar->z_data[xvar->i] = ft_zdata(data);
 		if (!xvar->z_data[xvar->i])
@@ -95,15 +95,20 @@ double	*ft_zdata(char **data)
 {
 	int		i;
 	double	*tab;
+	int		len;
 
 	i = 0;
+	len = 0;
 	tab = NULL;
 	if (!data)
 		return (NULL);
-	tab = ft_calloc(ft_lensplit(data), sizeof(double));
+	len = ft_lensplit(data);
+	if (!len)
+		return (NULL);
+	tab = ft_calloc(len, sizeof(double));
 	if (!tab)
 		return (NULL);
-	while(data[i])
+	while (data[i])
 	{
 		tab[i] = (double) ft_atoi(data[i]);
 		i++;

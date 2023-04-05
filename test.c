@@ -1,35 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/05 12:43:46 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/04/05 13:44:20 by TheTerror        ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "mlx_linux/mlx.h"
 #include<stdio.h>
-#include<fcntl.h>
-#include<stdlib.h>
-#include "include/libft/libft.h"
-#include "include/get_next_line/get_next_line.h"
-#include "mlx.h"
 
-
-
-int	main(int argc, char *argv[])
+int	main()
 {
-	int		i;
-	int		fd;
-	char	*line;
+	void	*ptr;
 
-	fd = argc;
-	i = 0;
-	line = NULL;
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	while (line)
-	{
-		i++;
-		free(line);
-		line = NULL;
-		line = get_next_line(fd);
-	}
-	printf("%d\n", i);
-	fd = close(fd);
-	if (fd < 0)
-		return (0);
+	ptr = 
+	printf("hello\n");
 	return (0);
 }

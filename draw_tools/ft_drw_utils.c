@@ -6,11 +6,11 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:58:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/02 17:02:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/05 18:48:52 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_draw_tools.h"
+#include "./ft_local.h"
 
 void	ft_ad_in3dspot(t_coord *pt)
 {
@@ -38,18 +38,17 @@ t_bool	ft_checkinframe(int x, int y, int height, int width)
 	return (__TRUE);
 }
 
-void	ft_3d_to_2dbase(t_coord *pt)
+t_bool	ft_3d_to_2dbase(t_coord *pt)
 {
-	t_coord *i;
-	t_coord *j;
-	t_coord *k;
+	t_coord	*i;
+	t_coord	*j;
+	t_coord	*k;
 
-	i = ft_calloc(1, sizeof(t_coord));
-	j = ft_calloc(1, sizeof(t_coord));
-	k = ft_calloc(1, sizeof(t_coord));
+	if (!pt || ft_alloc3pt(&i, &j, &k) == __FALSE)
+		return (__FALSE);
 	i->x = pt->x * sin(1.047197551214944);
 	i->y = pt->x * cos(1.047197551214944);
-	j->x = pt->y * (- sin(1.047197551214944) - ft_percent(__STEP, PERC_J));
+	j->x = pt->y * (-sin(1.047197551214944) - ft_percent(__STEP, PERC_J));
 	j->y = pt->y * (cos(1.047197551214944) + ft_percent(__STEP, PERC_J));
 	k->x = pt->z * 0;
 	k->y = pt->z * -1;
@@ -57,10 +56,9 @@ void	ft_3d_to_2dbase(t_coord *pt)
 	pt->y = i->y;
 	pt->x += j->x;
 	pt->y += j->y;
-	pt->x += (k->x  / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
+	pt->x += (k->x / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
 	pt->y += (k->y / ((double) __STEP)) * ft_percent(__STEP, PERC_K);
 	pt->z = 0;
-	free(i);
-	free(j);
-	free(k);
+	ft_free3pt(&i, &j, &k);
+	return (__TRUE);
 }
