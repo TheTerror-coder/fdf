@@ -6,22 +6,22 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:58:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 18:48:52 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 17:14:51 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_local.h"
 
-void	ft_ad_in3dspot(t_coord *pt)
+void	ft_ad_in3dspot(t_vars *xvar, t_coord *pt)
 {
-	pt->x += _OX;
-	pt->y += _OY;
+	pt->x += _OX + xvar->horstep;
+	pt->y += _OY + xvar->vertstep;
 }
 
-void	ft_add_step(t_coord *pt)
+void	ft_add_step(t_vars *xvar, t_coord *pt)
 {
-	pt->x *= __STEP;
-	pt->y *= __STEP;
+	pt->x *= (__STEP + xvar->zmstep);
+	pt->y *= (__STEP + xvar->zmstep);
 }
 
 void	ft_cpyvertex(t_coord *dst, t_coord *src)
@@ -38,7 +38,7 @@ t_bool	ft_checkinframe(int x, int y, int height, int width)
 	return (__TRUE);
 }
 
-t_bool	ft_3d_to_2dbase(t_coord *pt)
+t_bool	ft_3d_to_2dbase(t_vars *xvar, t_coord *pt)
 {
 	t_coord	*i;
 	t_coord	*j;
@@ -46,12 +46,12 @@ t_bool	ft_3d_to_2dbase(t_coord *pt)
 
 	if (!pt || ft_alloc3pt(&i, &j, &k) == __FALSE)
 		return (__FALSE);
-	i->x = pt->x * sin(1.047197551214944);
-	i->y = pt->x * cos(1.047197551214944);
-	j->x = pt->y * (-sin(1.047197551214944) - ft_percent(__STEP, PERC_J));
-	j->y = pt->y * (cos(1.047197551214944) + ft_percent(__STEP, PERC_J));
+	i->x = pt->x * sin(__ANGLE_I(xvar->angle));
+	i->y = pt->x * cos(__ANGLE_I(xvar->angle));
+	j->x = pt->y * (-sin(__ANGLE_J(xvar->angle)) - ft_percent(__STEP, PERC_J));
+	j->y = pt->y * (cos(__ANGLE_J(xvar->angle)) + ft_percent(__STEP, PERC_J));
 	k->x = pt->z * 0;
-	k->y = pt->z * -1;
+	k->y = pt->z * (-1 - xvar->height);
 	pt->x = i->x;
 	pt->y = i->y;
 	pt->x += j->x;

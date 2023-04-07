@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:36:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 18:49:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 14:03:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	ft_vert_line(t_img *img, double y0, t_coord *pt)
 	x = pt->x;
 	while (y0 <= pt->y)
 	{
-		my_mlx_pixel_put(img, x, y0, img->color);
+		if (ft_checkinframe(x, y0, _HEIGHT, _WIDHT) != __FALSE)
+			my_mlx_pixel_put(img, x, y0, img->color);
 		y0++;
 	}
 }
@@ -76,7 +77,8 @@ void	ft_hor_line(t_img *img, double x0, t_coord *pt)
 	y = pt->y;
 	while (x0 <= pt->x)
 	{
-		my_mlx_pixel_put(img, x0, y, img->color);
+		if (ft_checkinframe(x0, y, _HEIGHT, _WIDHT) != __FALSE)
+			my_mlx_pixel_put(img, x0, y, img->color);
 		x0++;
 	}
 }

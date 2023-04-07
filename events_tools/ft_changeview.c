@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_tools.h                                    :+:      :+:    :+:   */
+/*   ft_changeview.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 16:34:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/07 13:45:35 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/04/07 16:53:43 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/04/07 16:59:15 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_DRAW_TOOLS_H
-# define FT_DRAW_TOOLS_H
+#include "ft_events_tools.h"
 
-# include "../ft_fdf.h"
+t_bool	ft_render(t_vars *xvar);
 
-t_bool	ft_drw_vector(t_vars *xvar, t_vec *vec);
-void	ft_drw_2dspot(t_vars *xvar);
-void	ft_drw_3dspot(t_vars *xvar);
-
-#endif
+t_bool	ft_flat(t_vars *xvar)
+{
+	xvar->flg3d = !xvar->flg3d;
+	return (ft_render(xvar));
+}

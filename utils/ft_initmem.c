@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/06 20:11:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 16:49:24 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ t_vars	*ft_init_tvars()
 	}
 	xvar->img = im;
 	xvar->fdbk = __TRUE;
+	xvar->flgzoom = 1;
+	xvar->flg3d = 1;
 	return (xvar);
 }

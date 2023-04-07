@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 16:43:52 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 19:00:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include<sys/stat.h>
 # include<fcntl.h>
 
+//enlever stdio
 #include<stdio.h>
 
 # include "./include/libft/libft.h"
@@ -28,7 +29,7 @@
 # include "./draw_tools/ft_draw_tools.h"
 # include "./utils/ft_utils.h"
 # include "./data_tools/ft_data_tools.h"
+# include "./events_tools/ft_events_tools.h"
 
-void	ft_exitprocss(int status, t_vars *params);
-
+t_bool	ft_fdf_op(t_vars *xvar);
 #endif

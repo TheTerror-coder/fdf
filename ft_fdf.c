@@ -6,21 +6,22 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 18:20:11 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 18:48:34 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 int		ft_fdf(t_vars *xvar);
-void	ft_fdf_op(t_vars *xvar);
-void	ft_exitprocss(int status, t_vars *xvar);
+t_bool	ft_fdf_op(t_vars *xvar);
 
 int	main(int argc, char *argv[])
 {
 	t_vars	*xvar;
 
 	xvar = ft_init_tvars();
+	if (!xvar)
+		exit(EXIT_FAILURE);
 	if (argc < 2)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	if (ft_checkextension(argv[1]) == __FALSE)
@@ -45,27 +46,27 @@ int	ft_fdf(t_vars *xvar)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	if (ft_setvectors(xvar) == __FALSE)
 		ft_exitprocss(EXIT_FAILURE, xvar);
-	ft_fdf_op(xvar);
-	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
-	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_destroy, xvar);
+	if (ft_fdf_op(xvar) == __FALSE)
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	mlx_hook(xvar->win, __ON_MOUSEDOWN, __BUTTONPRESSMASK, ft_mousehook, xvar);
+	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_close, xvar);
 	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
+	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
 	mlx_loop(xvar->mlx);
 	return (__NTR);
 }
 
-void	ft_fdf_op(t_vars *xvar)
+t_bool	ft_fdf_op(t_vars *xvar)
 {
 	int	i;
 
 	i = 0;
+	xvar->fdbk = __TRUE;
 	xvar->img->color = 0xe8f702;
-	printf("Before\n");
-	printf("lenlist= %d\n", xvar->lenlist);
-	while (i < xvar->lenlist && xvar->list[i])
+	while (xvar->fdbk == __TRUE && i < xvar->lenlist && xvar->list[i])
 	{
-		ft_drw_vector(xvar, xvar->list[i]);
+		xvar->fdbk = ft_drw_vector(xvar, xvar->list[i]);
 		i++;
 	}
-	printf("i= %d\n", i);
-	printf("total: %d\n", xvar->lenlist);
+	return (xvar->fdbk);
 }

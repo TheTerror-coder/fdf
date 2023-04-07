@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 18:09:38 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/04/07 18:52:11 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,35 @@
 # define __NTR -100 //Nothing To Report
 # define __ON_DESTROY 17 //Button x window killer
 # define __ON_KEYDOWN 2
+# define __ON_MOUSEDOWN 4
 # define __KEYPRESSMASK 1L<<0
+# define __BUTTONPRESSMASK 1L<<2
+
+/*KEYCODES*/
 # define __ESC 65307 //ESCape key
+# define __HMIN 104 //h key
+# define __LMIN 108 //l key
+# define __ZOOMIN 4 //
+# define __ZOOMOUT 5 //
+# define __LEFT 65361 //
+# define __RIGHT 65363 //
+# define __UP 65362 //
+# define __DOWN 65364 //
+# define __LEFTBUTTON 1 //
+# define __RIGHTBUTTON 3 //
+# define __WHEELBUTTON 2 //
+
 # define __STEP 30 //step lenght between two points
+# define __ZOOMSTEP 5 //zoom's step lenght
+# define __HEIGHTSTEP 2 //zoom's step lenght
+
+# define __ISOANGLE 1.047197551214944
+# define __ANGLE_I(x) (__ISOANGLE - x)
+# define __ANGLE_J(x) (__ISOANGLE + x)
+# define __ANGLE_K(x) (x)
 
 # define _OX 500
-# define _OY 100
+# define _OY 0
 
 # define PERC_J 0.5 //Percentage of STEP defining the step on j axis
 # define PERC_K 8.0 //Percentage of STEP defining the step on k axis
@@ -76,6 +99,13 @@ typedef struct s_vars
 	int		jx;
 	int		i;
 	t_bool	fdbk;
+	int		flgzoom;
+	int		flg3d;
+	double	zmstep;//zoomstep
+	double	horstep;
+	double	vertstep;
+	double	angle;
+	double	height;
 }				t_vars;
 
 #endif
