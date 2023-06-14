@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/09 18:07:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 15:21:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	ft_fdf(t_vars *xvar)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	if (ft_fdf_op(xvar) == __FALSE)
 		ft_exitprocss(EXIT_FAILURE, xvar);
-	mlx_hook(xvar->win, __ON_MOUSEDOWN, __BUTTONPRESSMASK, ft_mousehook, xvar);
-	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_close, xvar);
-	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
+	ft_events(xvar);
 	mlx_put_image_to_window(xvar->mlx, xvar->win, xvar->img->image, 0, 0);
 	mlx_loop(xvar->mlx);
 	return (__NTR);

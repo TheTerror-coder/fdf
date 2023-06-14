@@ -1,9 +1,11 @@
 NAME = fdf
+
 LIBFT_PATH = 		./libft/
 DRAW_TOOLS_PATH = 	./draw_tools/
 UTILS_PATH = 		./utils/
 DATA_TOOLS_PATH = 	./data_tools/
 EVENTS_TOOLS_PATH =	./events_tools/
+BONUS_PATH =		./bonus/
 
 INCLUDE_FT_LOCALS = $(DRAW_TOOLS_PATH)ft_local.h $(DATA_TOOLS_PATH)ft_local.h 
 INCLUDE = 	ft_fdf.h ft_preprocss.h $(INCLUDE_FT_LOCALS) $(DRAW_TOOLS_PATH)ft_draw_tools.h $(UTILS_PATH)ft_utils.h \
@@ -23,7 +25,7 @@ SRC_DATA_TOOLS = $(addprefix $(DATA_TOOLS_PATH), ft_getdata.c ft_datatools_utils
 SRC = $(SRC_DATA_TOOLS) ft_fdf.c $(SRC_DRAW_TOOLS) $(SRC_UTILS) $(SRC_EVENTS_TOOLS)
 OBJ = $(SRC:.c=.o)
 
-all : make_libft $(NAME)
+all : make_libft rm_bonus $(NAME)
 
 %.o : %.c $(INCLUDE) $(LIBFT_PATH)$(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(MLX_OBJ_OPTIONS) -c $< -o $@
@@ -33,6 +35,11 @@ make_libft :
 
 $(NAME): $(OBJ) $(INCLUDE)
 	$(CC) $^ $(LIBFT_PATH)$(LIBFT_LIB) $(MLX_LINK_OPTIONS) -o $@
+
+bonus : make_bonus
+
+make_bonus :
+	make -C $(BONUS_PATH)
 
 clean :
 	make clean -C $(LIBFT_PATH)
