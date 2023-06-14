@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:53:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/07 18:48:34 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 18:07:21 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	main(int argc, char *argv[])
 	xvar = ft_init_tvars();
 	if (!xvar)
 		exit(EXIT_FAILURE);
-	if (argc < 2)
-		ft_exitprocss(EXIT_FAILURE, xvar);
+	ft_checkargc(xvar, argc);
 	if (ft_checkextension(argv[1]) == __FALSE)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	xvar->map = ft_strdup(argv[1]);
@@ -31,7 +30,10 @@ int	main(int argc, char *argv[])
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	xvar->fd = open(xvar->map, O_RDONLY);
 	if (xvar->fd == -1)
+	{
+		perror(xvar->map);
 		ft_exitprocss(EXIT_FAILURE, xvar);
+	}
 	if (ft_fdf(xvar) != __NTR)
 		ft_exitprocss(EXIT_FAILURE, xvar);
 	ft_exitprocss(EXIT_SUCCESS, xvar);

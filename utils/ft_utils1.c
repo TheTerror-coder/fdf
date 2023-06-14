@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:17:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 14:52:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 18:07:12 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	ft_exitprocss(int status, t_vars *xvar)
 		free(xvar->mlx);
 	}
 	ft_free_tvars(xvar);
-	if (status == EXIT_SUCCESS)
-		printf("EXIT_SUCCESS\n");
-	else
-		printf("EXIT_FAILURE\n");
 	exit(status);
 }
 
@@ -55,6 +51,18 @@ int	ft_lensplit(char **sstr)
 	return (i);
 }
 
+void	ft_checkargc(t_vars *xvar, int argc)
+{
+	if (argc != 2)
+	{
+		if (argc > 2)
+			ft_putendl_fd("too many arguments", STDERR_FILENO);
+		if (argc < 2)
+			ft_putendl_fd("infile missing", STDERR_FILENO);
+		ft_exitprocss(EXIT_FAILURE, xvar);
+	}
+}
+
 t_bool	ft_checkextension(char	*name)
 {
 	char	**parts;
@@ -65,17 +73,16 @@ t_bool	ft_checkextension(char	*name)
 		return (__FALSE);
 	if (ft_lensplit(parts) != 2 || ft_strlen(parts[1]) != 3)
 	{
-		printf("format no valid!\n");
+		ft_putendl_fd("invalid file format", STDERR_FILENO);
 		ft_freesplit(parts);
 		return (__FALSE);
 	}
 	if (ft_strncmp(parts[1] , "fdf", 3) == 0)
 	{
-		printf("format valid!\n");
 		ft_freesplit(parts);
 		return (__TRUE);
 	}
-	printf("warning error!\nformat no valid\n");
+	ft_putendl_fd("invalid file extension", STDERR_FILENO);
 	ft_freesplit(parts);
 	return (__FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 22:44:28 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/07 18:33:45 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 18:08:12 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		ft_mousehook(int button, int x, int y, t_vars *xvar);
 int		ft_lensplit(char **sstr);
 double	ft_percent(double n, double per);
 t_bool	ft_set_mlx(t_vars *xvar);
+void	ft_checkargc(t_vars *xvar, int argc);
 t_bool	ft_checkextension(char	*name);
 t_bool	ft_contain_num(char *str);
 t_bool	ft_set_jx(t_vars *xvar);

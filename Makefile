@@ -1,15 +1,13 @@
 NAME = fdf
-LIBFT_PATH = 		include/libft/
-GNL_PATH = 			include/get_next_line/
-DRAW_TOOLS_PATH = 	draw_tools/
-UTILS_PATH = 		utils/
-DATA_TOOLS_PATH = 	data_tools/
-EVENTS_TOOLS_PATH =	events_tools/
+LIBFT_PATH = 		./libft/
+DRAW_TOOLS_PATH = 	./draw_tools/
+UTILS_PATH = 		./utils/
+DATA_TOOLS_PATH = 	./data_tools/
+EVENTS_TOOLS_PATH =	./events_tools/
 
 INCLUDE_FT_LOCALS = $(DRAW_TOOLS_PATH)ft_local.h $(DATA_TOOLS_PATH)ft_local.h 
 INCLUDE = 	ft_fdf.h ft_preprocss.h $(INCLUDE_FT_LOCALS) $(DRAW_TOOLS_PATH)ft_draw_tools.h $(UTILS_PATH)ft_utils.h \
-			$(DATA_TOOLS_PATH)ft_data_tools.h $(LIBFT_PATH)libft.h $(GNL_PATH)get_next_line.h \
-			$(EVENTS_TOOLS_PATH)ft_events_tools.h
+			$(DATA_TOOLS_PATH)ft_data_tools.h $(LIBFT_PATH)libft.h $(EVENTS_TOOLS_PATH)ft_events_tools.h
 
 CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra
@@ -22,8 +20,7 @@ SRC_EVENTS_TOOLS = $(addprefix $(EVENTS_TOOLS_PATH), ft_zoom.c ft_translate.c ft
 SRC_DRAW_TOOLS = $(addprefix $(DRAW_TOOLS_PATH), ft_drawer.c ft_temp_utils.c ft_spot.c ft_trace.c ft_drw_utils.c)
 SRC_UTILS = $(addprefix $(UTILS_PATH), ft_utils1.c ft_utils2.c ft_initmem.c ft_freemem.c ft_mlx_utils.c ft_keepnum.c)
 SRC_DATA_TOOLS = $(addprefix $(DATA_TOOLS_PATH), ft_getdata.c ft_datatools_utils.c ft_setvectors.c)
-SRC_GNL = $(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
-SRC = $(SRC_DATA_TOOLS) $(SRC_GNL) ft_fdf.c $(SRC_DRAW_TOOLS) $(SRC_UTILS) $(SRC_EVENTS_TOOLS)
+SRC = $(SRC_DATA_TOOLS) ft_fdf.c $(SRC_DRAW_TOOLS) $(SRC_UTILS) $(SRC_EVENTS_TOOLS)
 OBJ = $(SRC:.c=.o)
 
 all : make_libft $(NAME)
