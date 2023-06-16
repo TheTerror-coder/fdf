@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:13:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/16 16:38:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:59:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_keyhook(int keycode, t_vars *xvar)
 		xvar->fdbk = ft_translateup(xvar);
 	else if (keycode == __DOWN)
 		xvar->fdbk = ft_translatedown(xvar);
-	else if (keycode == __LMIN && xvar->flg3d)
+	else if (keycode == __L_ && xvar->flg3d)
 		xvar->fdbk = ft_lower(xvar);
-	else if (keycode == __HMIN && xvar->flg3d)
+	else if (keycode == __H_ && xvar->flg3d)
 		xvar->fdbk = ft_higher(xvar);
 	else if (keycode == __ESC)
 		ft_exitprocss(EXIT_SUCCESS, xvar);

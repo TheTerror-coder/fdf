@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/16 17:24:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:59:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 
 /*KEYCODES*/
 # define __ESC 65307 		//ESCape key
-# define __HMIN 104 		//h key
-# define __LMIN 108 		//l key
+# define __H_ 104 		//h key
+# define __L_ 108 		//l key
 # define __ZOOMIN 4 		//mouse wheel
 # define __ZOOMOUT 5 		//mouse wheel
 # define __LEFT 65361 		//left key
