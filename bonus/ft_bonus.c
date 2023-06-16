@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:13:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/16 17:59:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 18:19:41 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_events(t_vars *xvar)
 {
 	mlx_hook(xvar->win, __ON_MOUSEDOWN, __BUTTONPRESSMASK, ft_mousehook, xvar);
 	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_close, xvar);
-	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
+	mlx_hook(xvar->win, __ON_KEYUP, __KEYRELEASEMASK, ft_keyhook, xvar);
 }
 
 int	ft_keyhook(int keycode, t_vars *xvar)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/16 17:59:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 18:29:41 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@
 
 # define __NTR -100 		//Nothing To Report
 # define __ON_DESTROY 17 	//Button x window killer
-# define __ON_KEYDOWN 2
-# define __ON_MOUSEDOWN 4
-# define __KEYPRESSMASK 1L
+# define __ON_KEYUP 03
+# define __ON_MOUSEDOWN 04
+# define __KEYRELEASEMASK 2L
 # define __BUTTONPRESSMASK 4L
 
 /*KEYCODES*/
 # define __ESC 65307 		//ESCape key
-# define __H_ 104 		//h key
-# define __L_ 108 		//l key
+# define __H_ 104 			//h key
+# define __L_ 108 			//l key
 # define __ZOOMIN 4 		//mouse wheel
 # define __ZOOMOUT 5 		//mouse wheel
 # define __LEFT 65361 		//left key
@@ -48,7 +48,8 @@
 
 # define __STEP 30			//step lenght between two points
 # define __ZOOMSTEP 5 		//zoom's step lenght
-# define __HEIGHTSTEP 2 	//zoom's step lenght
+# define __HEIGHTSTEP 2 	//altitude's step lenght
+# define __SHIFTSTEP 50 	//shifting's step lenght
 
 # define __ISOANGLE 1.047197551214944
 /*
