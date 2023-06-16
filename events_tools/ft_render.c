@@ -16,9 +16,14 @@ t_bool	ft_render_op(t_vars *xvar, t_img *img);
 
 t_bool	ft_render(t_vars *xvar)
 {
-	t_img	*img;;
+	t_img	*img;
 
 	xvar->fdbk = __TRUE;
+	if (!xvar->flgzoom)
+	{
+		xvar->zmstep += __ZOOMSTEP;
+		xvar->flgzoom = 1;
+	}
 	img = ft_calloc(1, sizeof(t_img));
 	if (!img)
 		return (__FALSE);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:58:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/07 17:14:51 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:13:10 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ t_bool	ft_3d_to_2dbase(t_vars *xvar, t_coord *pt)
 
 	if (!pt || ft_alloc3pt(&i, &j, &k) == __FALSE)
 		return (__FALSE);
-	i->x = pt->x * sin(__ANGLE_I(xvar->angle));
-	i->y = pt->x * cos(__ANGLE_I(xvar->angle));
-	j->x = pt->y * (-sin(__ANGLE_J(xvar->angle)) - ft_percent(__STEP, PERC_J));
-	j->y = pt->y * (cos(__ANGLE_J(xvar->angle)) + ft_percent(__STEP, PERC_J));
+	i->x = pt->x * sin(ft_angle_i(xvar->angle));
+	i->y = pt->x * cos(ft_angle_i(xvar->angle));
+	j->x = pt->y * (-sin(ft_angle_j(xvar->angle)) - ft_percent(__STEP, PERC_J));
+	j->y = pt->y * (cos(ft_angle_j(xvar->angle)) + ft_percent(__STEP, PERC_J));
 	k->x = pt->z * 0;
 	k->y = pt->z * (-1 - xvar->height);
 	pt->x = i->x;

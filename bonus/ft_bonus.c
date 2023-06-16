@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:13:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/14 17:18:53 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:38:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_keyhook(int keycode, t_vars *xvar)
 		xvar->fdbk = ft_translateup(xvar);
 	else if (keycode == __DOWN)
 		xvar->fdbk = ft_translatedown(xvar);
-	else if (keycode == __LMIN)
+	else if (keycode == __LMIN && xvar->flg3d)
 		xvar->fdbk = ft_lower(xvar);
-	else if (keycode == __HMIN)
+	else if (keycode == __HMIN && xvar->flg3d)
 		xvar->fdbk = ft_higher(xvar);
 	else if (keycode == __ESC)
 		ft_exitprocss(EXIT_SUCCESS, xvar);
@@ -48,9 +48,9 @@ int	ft_mousehook(int button, int x, int y, t_vars *xvar)
 		xvar->fdbk = ft_zoomin(xvar);
 	else if (button == __ZOOMOUT)
 		xvar->fdbk = ft_zoomout(xvar);
-	else if (button == __RIGHTBUTTON)
+	else if (button == __RIGHTBUTTON && xvar->flg3d)
 		xvar->fdbk = ft_rotateright(xvar);
-	else if (button == __LEFTBUTTON)
+	else if (button == __LEFTBUTTON && xvar->flg3d)
 		xvar->fdbk = ft_rotateleft(xvar);
 	else if (button == __WHEELBUTTON)
 		xvar->fdbk = ft_flat(xvar);

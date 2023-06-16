@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:48:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/14 15:25:34 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:47:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,11 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->size_line + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 int	ft_xbutton_close(t_vars *xvar)
 {
 	ft_exitprocss(EXIT_SUCCESS, xvar);
 	return (0);
-}
-
-int	ft_keyhook(int keycode, t_vars *xvar)
-{
-	if (keycode == __ESC)
-		ft_exitprocss(EXIT_SUCCESS, xvar);
-	return (0);
-}
-
-void	ft_events(t_vars *xvar)
-{
-	mlx_hook(xvar->win, __ON_DESTROY, 0, ft_xbutton_close, xvar);
-	mlx_hook(xvar->win, __ON_KEYDOWN, __KEYPRESSMASK, ft_keyhook, xvar);
 }

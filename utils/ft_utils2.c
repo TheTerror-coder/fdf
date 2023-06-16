@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:14:40 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/05 15:23:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:12:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ t_bool	ft_contain_num(char *str)
 		i++;
 	}
 	return (__FALSE);
+}
+
+double	ft_angle_i(double x)
+{
+	return (__ISOANGLE - x);
+}
+
+double	ft_angle_j(double x)
+{
+	return (__ISOANGLE + x);
 }

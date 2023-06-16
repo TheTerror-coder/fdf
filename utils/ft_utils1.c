@@ -6,12 +6,11 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:17:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/09 18:07:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:46:33 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
-
 
 void	ft_exitprocss(int status, t_vars *xvar)
 {
@@ -77,7 +76,7 @@ t_bool	ft_checkextension(char	*name)
 		ft_freesplit(parts);
 		return (__FALSE);
 	}
-	if (ft_strncmp(parts[1] , "fdf", 3) == 0)
+	if (ft_strncmp(parts[1], "fdf", 3) == 0)
 	{
 		ft_freesplit(parts);
 		return (__TRUE);

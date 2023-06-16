@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 00:51:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/06/13 17:45:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:24:39 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,22 @@
 
 # include "./libft/libft.h"
 
-# define _SIZE_X 1840 		//window's x size
-# define _SIZE_Y 900 		//window's y size
-# define _WIDHT 1840 		//image's widht
-# define _HEIGHT 900 		//image's height
+# define _SIZE_X_HONOR 1920		//screen's widht of the PC HONOR MAGICBOOK
+# define _SIZE_Y_HONOR 1080		//screen's height of the PC HONOR MAGICBOOK
+# define _SIZE_X_MAC 3840		//screen's widht of 42's MAC
+# define _SIZE_Y_MAC 2160		//screen's height of 42's MAC
+
+# define _SIZE_X _SIZE_X_MAC 		//window's x size
+# define _SIZE_Y _SIZE_Y_MAC 		//window's y size
+# define _WIDHT  _SIZE_X			//image's widht
+# define _HEIGHT _SIZE_Y 			//image's height
 
 # define __NTR -100 		//Nothing To Report
 # define __ON_DESTROY 17 	//Button x window killer
 # define __ON_KEYDOWN 2
 # define __ON_MOUSEDOWN 4
-# define __KEYPRESSMASK 1L<<0
-# define __BUTTONPRESSMASK 1L<<2
+# define __KEYPRESSMASK 1L
+# define __BUTTONPRESSMASK 4L
 
 /*KEYCODES*/
 # define __ESC 65307 		//ESCape key
@@ -41,38 +46,38 @@
 # define __RIGHTBUTTON 3 	//mouse's right button
 # define __WHEELBUTTON 2 	//mouse's wheel button
 
-# define __STEP 30 			//step lenght between two points
+# define __STEP 30			//step lenght between two points
 # define __ZOOMSTEP 5 		//zoom's step lenght
 # define __HEIGHTSTEP 2 	//zoom's step lenght
 
 # define __ISOANGLE 1.047197551214944
-# define __ANGLE_I(x) (__ISOANGLE - x)
-# define __ANGLE_J(x) (__ISOANGLE + x)
-# define __ANGLE_K(x) (x)
-
-# define _OX 500
-# define _OY 0
+/*
+# define _OX ((_SIZE_X * 2) / 7)
+# define _OY ((_SIZE_Y * 2) / 7)
+*/
+# define _OX 1000
+# define _OY 600
 
 # define PERC_J 0.5 		//Percentage of STEP defining the step on j axis
 # define PERC_K 8.0 		//Percentage of STEP defining the step on k axis
 
-typedef struct	s_coord
+typedef struct s_coord
 {
 	double	x;
 	double	y;
 	double	z;
 }				t_coord;
 
-typedef struct	s_vec
+typedef struct s_vec
 {
 	t_coord	*o;
-	t_coord *e;
+	t_coord	*e;
 }				t_vec;
 
 typedef struct s_img
 {
 	char	*addr;
-	int		bpp;	//bits per pixel
+	int		bpp;
 	int		size_line;
 	int		endian;
 	int		color;
@@ -96,11 +101,10 @@ typedef struct s_vars
 	t_bool	fdbk;
 	int		flgzoom;
 	int		flg3d;
-	double	zmstep;//zoomstep
+	double	zmstep;
 	double	horstep;
 	double	vertstep;
 	double	angle;
 	double	height;
 }				t_vars;
-
 #endif

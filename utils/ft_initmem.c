@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:41:38 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/04/07 16:49:24 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:45:48 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_vec	*ft_alloc_vect(unsigned int nmemb, unsigned int size)
 	return (vec);
 }
 
-t_vars	*ft_init_tvars()
+t_vars	*ft_init_tvars(void)
 {
 	t_vars	*xvar;
 	t_img	*im;
-	
+
 	xvar = ft_calloc(1, sizeof(t_vars));
 	if (!xvar)
 		return (NULL);
